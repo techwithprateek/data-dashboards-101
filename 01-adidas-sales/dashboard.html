@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adidas US Sales Dashboard</title>
+<style>
+  :root {
+    --accent: #d92b3d;
+    --accent-soft: #f6c3c8;
+    --ink: #1c1c1c;
+    --ink-muted: #5b5b5b;
+    --surface: #ffffff;
+    --surface-alt: #f5f5f4;
+    --border: #e4e2df;
+    --font: 'Helvetica Neue', Arial, sans-serif;
+    --heading-transform: uppercase;
+    --heading-tracking: 0.02em;
+    --radius: 4px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #ececec;
+      --ink-muted: #a8a8a8;
+      --surface: #17181a;
+      --surface-alt: #202124;
+      --border: #313234;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    background: var(--surface-alt);
+    color: var(--ink);
+    padding: 32px clamp(16px, 4vw, 48px) 64px;
+  }
+  header {
+    margin-bottom: 28px;
+  }
+  header .eyebrow {
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+  h1 {
+    margin: 6px 0 4px;
+    font-size: clamp(22px, 3vw, 32px);
+    text-transform: var(--heading-transform);
+    letter-spacing: var(--heading-tracking);
+  }
+  header p {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 14px;
+    max-width: 640px;
+  }
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .kpi {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+  .kpi .label {
+    font-size: 12px;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .kpi .value {
+    font-size: clamp(20px, 2.4vw, 26px);
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 16px;
+  }
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px 12px;
+    min-width: 0;
+  }
+  .chart-card h3 {
+    margin: 0 0 2px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .chart-card .sub {
+    margin: 0 0 12px;
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  .chart-card canvas {
+    max-height: 260px;
+  }
+  footer {
+    margin-top: 32px;
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">data-dashboards-101 &middot; project 1</div>
+  <h1>Adidas US Sales</h1>
+  <p>Regional sales performance across Adidas US retail partners: revenue, profit margin, and product category mix.</p>
+</header>
+
+<section class="kpis">
+  <div class="kpi"><div class="label">Total Revenue</div><div class="value">$899.9M</div></div>
+  <div class="kpi"><div class="label">Total Units Sold</div><div class="value">2,478,861</div></div>
+  <div class="kpi"><div class="label">Avg Operating Margin</div><div class="value">42.3%</div></div>
+  <div class="kpi"><div class="label">Total Operating Profit</div><div class="value">$332.1M</div></div>
+</section>
+
+<section class="charts-grid">
+  <div class="chart-card">
+    <h3>Revenue by Region</h3>
+    
+    <canvas id="c1"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Revenue by Product Category</h3>
+    
+    <canvas id="c2"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Monthly Revenue Trend</h3>
+    
+    <canvas id="c3"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Operating Margin by Retailer</h3>
+    
+    <canvas id="c4"></canvas>
+  </div>
+</section>
+
+<footer>Data source: <a href="https://www.kaggle.com/datasets/heemalichaudhari/adidas-sales-dataset" target="_blank" rel="noopener">Kaggle: Adidas US Sales Dataset</a></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+const DATA = {"kpis": {"total_revenue": 899902125.0, "total_units": 2478861, "avg_margin": 0.42299129353233833, "total_profit": 332134761.45000005}, "by_region": [{"Region": "West", "revenue": 269943182.0, "profit": 89609406.55000001, "margin": 0.331956546878076}, {"Region": "Northeast", "revenue": 186324067.0, "profit": 68020587.65, "margin": 0.36506603116386466}, {"Region": "Southeast", "revenue": 163171236.0, "profit": 60555416.7, "margin": 0.3711157565785676}, {"Region": "South", "revenue": 144663181.0, "profit": 61138004.07, "margin": 0.42262311423941384}, {"Region": "Midwest", "revenue": 135800459.0, "profit": 52811346.480000004, "margin": 0.38888930765690566}], "by_category": [{"Product": "Men's Street Footwear", "revenue": 208826244.0, "profit": 82802260.62, "units": 593320, "margin": 0.39651271331586085}, {"Product": "Women's Apparel", "revenue": 179038860.0, "profit": 68650970.56, "units": 433827, "margin": 0.3834417319234495}, {"Product": "Men's Athletic Footwear", "revenue": 153673680.00000003, "profit": 51846888.190000005, "units": 435526, "margin": 0.3373830065760122}, {"Product": "Women's Street Footwear", "revenue": 128002813.00000001, "profit": 45095826.81, "units": 392269, "margin": 0.35230340453533626}, {"Product": "Men's Apparel", "revenue": 123728632.0, "profit": 44763030.33, "units": 306683, "margin": 0.36178392669855103}, {"Product": "Women's Athletic Footwear", "revenue": 106631896.0, "profit": 38975784.940000005, "units": 317236, "margin": 0.3655171332600145}], "by_retailer": [{"Retailer": "West Gear", "revenue": 242964333.0, "profit": 85667873.18, "margin": 0.3525944410120477}, {"Retailer": "Foot Locker", "revenue": 220094720.0, "profit": 80722124.81, "margin": 0.36676084192296843}, {"Retailer": "Sports Direct", "revenue": 182470997.0, "profit": 74332954.96000001, "margin": 0.4073686020359718}, {"Retailer": "Kohl's", "revenue": 102114753.0, "profit": 36811252.58, "margin": 0.3604890723282658}, {"Retailer": "Amazon", "revenue": 77698912.0, "profit": 28818503.310000002, "margin": 0.37089970204473394}, {"Retailer": "Walmart", "revenue": 74558410.0, "profit": 25782052.61, "margin": 0.3457967063675312}], "by_month": [{"Month": "2020-01", "revenue": 16253746.0}, {"Month": "2020-02", "revenue": 14997988.0}, {"Month": "2020-03", "revenue": 17660577.0}, {"Month": "2020-04", "revenue": 24607006.0}, {"Month": "2020-05", "revenue": 16918014.0}, {"Month": "2020-06", "revenue": 8829819.0}, {"Month": "2020-07", "revenue": 17146013.0}, {"Month": "2020-08", "revenue": 19877980.0}, {"Month": "2020-09", "revenue": 18304436.0}, {"Month": "2020-10", "revenue": 10836269.000000002}, {"Month": "2020-11", "revenue": 8622300.0}, {"Month": "2020-12", "revenue": 8026527.0}, {"Month": "2021-01", "revenue": 55225396.0}, {"Month": "2021-02", "revenue": 46102165.0}, {"Month": "2021-03", "revenue": 39148532.0}, {"Month": "2021-04", "revenue": 47732964.0}, {"Month": "2021-05", "revenue": 63589681.0}, {"Month": "2021-06", "revenue": 65917553.0}, {"Month": "2021-07", "revenue": 78334681.0}, {"Month": "2021-08", "revenue": 72288221.0}, {"Month": "2021-09", "revenue": 59357023.00000001}, {"Month": "2021-10", "revenue": 53074764.00000001}, {"Month": "2021-11", "revenue": 59235040.00000001}, {"Month": "2021-12", "revenue": 77815430.0}]};
+const ACCENT = "#d92b3d";
+const ACCENT_SOFT = "#f6c3c8";
+
+const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const TEXT_COLOR = isDark ? '#cfcfcf' : '#3a3a3a';
+const GRID_COLOR = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)';
+Chart.defaults.color = TEXT_COLOR;
+Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+
+function fmtMoney(v) {
+  const sign = v < 0 ? '-' : '';
+  v = Math.abs(v);
+  if (v >= 1e12) return sign + '$' + (v/1e12).toFixed(2) + 'T';
+  if (v >= 1e9) return sign + '$' + (v/1e9).toFixed(2) + 'B';
+  if (v >= 1e6) return sign + '$' + (v/1e6).toFixed(1) + 'M';
+  if (v >= 1e3) return sign + '$' + (v/1e3).toFixed(1) + 'K';
+  return sign + '$' + v.toFixed(0);
+}
+function fmtPct(v) { return (v*100).toFixed(1) + '%'; }
+function fmtCount(v) { return Math.round(v).toLocaleString(); }
+function fmtDays(v) { return v.toFixed(1) + ' days'; }
+function fmtRange(v) { return v.toFixed(0) + ' mi'; }
+function fmtPct100(v) { return v.toFixed(1) + '%'; }
+const FORMATTERS = {money: fmtMoney, pct: fmtPct, count: fmtCount, days: fmtDays, range: fmtRange, pct100: fmtPct100};
+
+function buildChart(spec) {
+  const rows = DATA[spec.dataKey];
+  const labels = rows.map(r => r[spec.labelField]);
+  const values = rows.map(r => r[spec.valueField]);
+  const fmt = FORMATTERS[spec.format];
+  const horizontal = !!spec.horizontal;
+  new Chart(document.getElementById(spec.id), {
+    type: spec.type,
+    data: {
+      labels,
+      datasets: [{
+        label: spec.title,
+        data: values,
+        backgroundColor: spec.type === 'line' ? ACCENT_SOFT : ACCENT,
+        borderColor: ACCENT,
+        borderWidth: spec.type === 'line' ? 2 : 0,
+        borderRadius: spec.type === 'bar' ? 5 : 0,
+        pointRadius: spec.type === 'line' ? 3 : 0,
+        pointBackgroundColor: ACCENT,
+        fill: spec.type === 'line',
+        tension: spec.type === 'line' ? 0.3 : 0,
+        maxBarThickness: 46,
+      }]
+    },
+    options: {
+      indexAxis: horizontal ? 'y' : 'x',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: isDark ? '#2a2b2e' : '#ffffff',
+          titleColor: TEXT_COLOR,
+          bodyColor: TEXT_COLOR,
+          borderColor: ACCENT,
+          borderWidth: 1,
+          padding: 10,
+          callbacks: {
+            label: (ctx) => fmt(horizontal ? ctx.parsed.x : ctx.parsed.y)
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: horizontal, color: GRID_COLOR },
+          ticks: horizontal ? { callback: (v) => fmt(v) } : {}
+        },
+        y: {
+          grid: { display: !horizontal, color: GRID_COLOR },
+          ticks: horizontal ? {} : { callback: (v) => fmt(v) },
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
+
+const CHARTS = [{"id": "c1", "type": "bar", "dataKey": "by_region", "labelField": "Region", "valueField": "revenue", "format": "money", "title": "Revenue by Region"}, {"id": "c2", "type": "bar", "dataKey": "by_category", "labelField": "Product", "valueField": "revenue", "format": "money", "title": "Revenue by Product Category"}, {"id": "c3", "type": "line", "dataKey": "by_month", "labelField": "Month", "valueField": "revenue", "format": "money", "title": "Monthly Revenue Trend"}, {"id": "c4", "type": "bar", "dataKey": "by_retailer", "labelField": "Retailer", "valueField": "margin", "format": "pct", "title": "Operating Margin by Retailer", "horizontal": true}];
+CHARTS.forEach(buildChart);
+</script>
+</body>
+</html>

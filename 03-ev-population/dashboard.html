@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WA Electric Vehicle Population Dashboard</title>
+<style>
+  :root {
+    --accent: #188a56;
+    --accent-soft: #c3ecd8;
+    --ink: #1c1c1c;
+    --ink-muted: #5b5b5b;
+    --surface: #ffffff;
+    --surface-alt: #f5f5f4;
+    --border: #e4e2df;
+    --font: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+    --heading-transform: none;
+    --heading-tracking: 0;
+    --radius: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #ececec;
+      --ink-muted: #a8a8a8;
+      --surface: #17181a;
+      --surface-alt: #202124;
+      --border: #313234;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    background: var(--surface-alt);
+    color: var(--ink);
+    padding: 32px clamp(16px, 4vw, 48px) 64px;
+  }
+  header {
+    margin-bottom: 28px;
+  }
+  header .eyebrow {
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+  h1 {
+    margin: 6px 0 4px;
+    font-size: clamp(22px, 3vw, 32px);
+    text-transform: var(--heading-transform);
+    letter-spacing: var(--heading-tracking);
+  }
+  header p {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 14px;
+    max-width: 640px;
+  }
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .kpi {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+  .kpi .label {
+    font-size: 12px;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .kpi .value {
+    font-size: clamp(20px, 2.4vw, 26px);
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 16px;
+  }
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px 12px;
+    min-width: 0;
+  }
+  .chart-card h3 {
+    margin: 0 0 2px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .chart-card .sub {
+    margin: 0 0 12px;
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  .chart-card canvas {
+    max-height: 260px;
+  }
+  footer {
+    margin-top: 32px;
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">data-dashboards-101 &middot; project 3</div>
+  <h1>WA Electric Vehicle Population</h1>
+  <p>EV registrations across Washington State: manufacturer share, adoption trend, and geographic concentration.</p>
+</header>
+
+<section class="kpis">
+  <div class="kpi"><div class="label">Total Registrations</div><div class="value">1,772,617</div></div>
+  <div class="kpi"><div class="label">Top Manufacturer</div><div class="value">Tesla</div></div>
+  <div class="kpi"><div class="label">Tesla Market Share</div><div class="value">39.9%</div></div>
+  <div class="kpi"><div class="label">YoY Growth (2024 vs 2023)</div><div class="value">31.1%</div></div>
+</section>
+
+<section class="charts-grid">
+  <div class="chart-card">
+    <h3>Registrations by Manufacturer</h3>
+    
+    <canvas id="c1"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Registration Trend (2018-2024)</h3>
+    
+    <canvas id="c2"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Registrations by County (Top 10)</h3>
+    
+    <canvas id="c3"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Avg Electric Range by Manufacturer</h3>
+    
+    <canvas id="c4"></canvas>
+  </div>
+</section>
+
+<footer>Data source: <a href="https://data.wa.gov/Transportation/Electric-Vehicle-Population-Data/rpr4-cgyd" target="_blank" rel="noopener">data.wa.gov: Electric Vehicle Population Data</a></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+const DATA = {"kpis": {"total_registrations": 1772617, "top_make": "TESLA", "top_make_share": 0.3987042886308774, "yoy_growth_2024_vs_2023": 0.31149402686206606}, "by_make": [{"make": "TESLA", "count": 706750}, {"make": "NISSAN", "count": 203381}, {"make": "CHEVROLET", "count": 151952}, {"make": "FORD", "count": 100603}, {"make": "BMW", "count": 77910}, {"make": "KIA", "count": 75589}, {"make": "TOYOTA", "count": 73325}, {"make": "HYUNDAI", "count": 45203}, {"make": "VOLKSWAGEN", "count": 40624}, {"make": "VOLVO", "count": 39281}, {"make": "RIVIAN", "count": 35995}, {"make": "AUDI", "count": 34492}], "by_year": [{"year": "2018", "count": 62091}, {"year": "2019", "count": 77359}, {"year": "2020", "count": 88654}, {"year": "2021", "count": 122828}, {"year": "2022", "count": 165541}, {"year": "2023", "count": 249199}, {"year": "2024", "count": 326823}], "by_county": [{"county": "King", "count": 910466}, {"county": "Snohomish", "count": 209728}, {"county": "Pierce", "count": 143235}, {"county": "Clark", "count": 103821}, {"county": "Kitsap", "count": 60541}, {"county": "Thurston", "count": 58533}, {"county": "Spokane", "count": 46481}, {"county": "Whatcom", "count": 43804}, {"county": "Benton", "count": 23191}, {"county": "Skagit", "count": 19759}], "by_type": [{"type": "Battery Electric Vehicle (BEV)", "count": 1364768}, {"type": "Hydrogen Powered Vehicle", "count": 45}, {"type": "Plug-in Hybrid Electric Vehicle (PHEV)", "count": 407804}], "avg_range_by_make": [{"make": "TESLA", "avg_range": 91.1, "count": 706750}, {"make": "CHEVROLET", "avg_range": 87.3, "count": 151952}, {"make": "FIAT", "avg_range": 82.6, "count": 9451}, {"make": "NISSAN", "avg_range": 80.7, "count": 203381}, {"make": "PORSCHE", "avg_range": 47.5, "count": 11809}, {"make": "AUDI", "avg_range": 46.8, "count": 34492}, {"make": "KIA", "avg_range": 45.0, "count": 75589}, {"make": "BMW", "avg_range": 38.9, "count": 77910}, {"make": "POLESTAR", "avg_range": 36.0, "count": 7769}, {"make": "MITSUBISHI", "avg_range": 34.0, "count": 8087}]};
+const ACCENT = "#188a56";
+const ACCENT_SOFT = "#c3ecd8";
+
+const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const TEXT_COLOR = isDark ? '#cfcfcf' : '#3a3a3a';
+const GRID_COLOR = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)';
+Chart.defaults.color = TEXT_COLOR;
+Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+
+function fmtMoney(v) {
+  const sign = v < 0 ? '-' : '';
+  v = Math.abs(v);
+  if (v >= 1e12) return sign + '$' + (v/1e12).toFixed(2) + 'T';
+  if (v >= 1e9) return sign + '$' + (v/1e9).toFixed(2) + 'B';
+  if (v >= 1e6) return sign + '$' + (v/1e6).toFixed(1) + 'M';
+  if (v >= 1e3) return sign + '$' + (v/1e3).toFixed(1) + 'K';
+  return sign + '$' + v.toFixed(0);
+}
+function fmtPct(v) { return (v*100).toFixed(1) + '%'; }
+function fmtCount(v) { return Math.round(v).toLocaleString(); }
+function fmtDays(v) { return v.toFixed(1) + ' days'; }
+function fmtRange(v) { return v.toFixed(0) + ' mi'; }
+function fmtPct100(v) { return v.toFixed(1) + '%'; }
+const FORMATTERS = {money: fmtMoney, pct: fmtPct, count: fmtCount, days: fmtDays, range: fmtRange, pct100: fmtPct100};
+
+function buildChart(spec) {
+  const rows = DATA[spec.dataKey];
+  const labels = rows.map(r => r[spec.labelField]);
+  const values = rows.map(r => r[spec.valueField]);
+  const fmt = FORMATTERS[spec.format];
+  const horizontal = !!spec.horizontal;
+  new Chart(document.getElementById(spec.id), {
+    type: spec.type,
+    data: {
+      labels,
+      datasets: [{
+        label: spec.title,
+        data: values,
+        backgroundColor: spec.type === 'line' ? ACCENT_SOFT : ACCENT,
+        borderColor: ACCENT,
+        borderWidth: spec.type === 'line' ? 2 : 0,
+        borderRadius: spec.type === 'bar' ? 5 : 0,
+        pointRadius: spec.type === 'line' ? 3 : 0,
+        pointBackgroundColor: ACCENT,
+        fill: spec.type === 'line',
+        tension: spec.type === 'line' ? 0.3 : 0,
+        maxBarThickness: 46,
+      }]
+    },
+    options: {
+      indexAxis: horizontal ? 'y' : 'x',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: isDark ? '#2a2b2e' : '#ffffff',
+          titleColor: TEXT_COLOR,
+          bodyColor: TEXT_COLOR,
+          borderColor: ACCENT,
+          borderWidth: 1,
+          padding: 10,
+          callbacks: {
+            label: (ctx) => fmt(horizontal ? ctx.parsed.x : ctx.parsed.y)
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: horizontal, color: GRID_COLOR },
+          ticks: horizontal ? { callback: (v) => fmt(v) } : {}
+        },
+        y: {
+          grid: { display: !horizontal, color: GRID_COLOR },
+          ticks: horizontal ? {} : { callback: (v) => fmt(v) },
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
+
+const CHARTS = [{"id": "c1", "type": "bar", "dataKey": "by_make", "labelField": "make", "valueField": "count", "format": "count", "title": "Registrations by Manufacturer", "horizontal": true}, {"id": "c2", "type": "line", "dataKey": "by_year", "labelField": "year", "valueField": "count", "format": "count", "title": "Registration Trend (2018-2024)"}, {"id": "c3", "type": "bar", "dataKey": "by_county", "labelField": "county", "valueField": "count", "format": "count", "title": "Registrations by County (Top 10)"}, {"id": "c4", "type": "bar", "dataKey": "avg_range_by_make", "labelField": "make", "valueField": "avg_range", "format": "range", "title": "Avg Electric Range by Manufacturer", "horizontal": true}];
+CHARTS.forEach(buildChart);
+</script>
+</body>
+</html>

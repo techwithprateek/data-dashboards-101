@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IBM HR Attrition Dashboard</title>
+<style>
+  :root {
+    --accent: #a34e64;
+    --accent-soft: #f0d3dc;
+    --ink: #1c1c1c;
+    --ink-muted: #5b5b5b;
+    --surface: #ffffff;
+    --surface-alt: #f5f5f4;
+    --border: #e4e2df;
+    --font: 'Avenir Next', 'Segoe UI', sans-serif;
+    --heading-transform: none;
+    --heading-tracking: 0;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #ececec;
+      --ink-muted: #a8a8a8;
+      --surface: #17181a;
+      --surface-alt: #202124;
+      --border: #313234;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    background: var(--surface-alt);
+    color: var(--ink);
+    padding: 32px clamp(16px, 4vw, 48px) 64px;
+  }
+  header {
+    margin-bottom: 28px;
+  }
+  header .eyebrow {
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+  h1 {
+    margin: 6px 0 4px;
+    font-size: clamp(22px, 3vw, 32px);
+    text-transform: var(--heading-transform);
+    letter-spacing: var(--heading-tracking);
+  }
+  header p {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 14px;
+    max-width: 640px;
+  }
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .kpi {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+  .kpi .label {
+    font-size: 12px;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .kpi .value {
+    font-size: clamp(20px, 2.4vw, 26px);
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 16px;
+  }
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px 12px;
+    min-width: 0;
+  }
+  .chart-card h3 {
+    margin: 0 0 2px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .chart-card .sub {
+    margin: 0 0 12px;
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  .chart-card canvas {
+    max-height: 260px;
+  }
+  footer {
+    margin-top: 32px;
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">data-dashboards-101 &middot; project 5</div>
+  <h1>IBM HR Attrition</h1>
+  <p>Employee attrition risk by department, overtime status, job role, and tenure.</p>
+</header>
+
+<section class="kpis">
+  <div class="kpi"><div class="label">Total Employees</div><div class="value">1,470</div></div>
+  <div class="kpi"><div class="label">Attrition Rate</div><div class="value">16.1%</div></div>
+  <div class="kpi"><div class="label">Avg Tenure (Leavers)</div><div class="value">5.1 yrs</div></div>
+  <div class="kpi"><div class="label">Avg Tenure (Stayers)</div><div class="value">7.4 yrs</div></div>
+</section>
+
+<section class="charts-grid">
+  <div class="chart-card">
+    <h3>Attrition Rate by Department</h3>
+    
+    <canvas id="c1"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Attrition Rate by Overtime Status</h3>
+    
+    <canvas id="c2"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Attrition Rate by Job Role</h3>
+    
+    <canvas id="c3"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Attrition Rate by Tenure Bucket</h3>
+    
+    <canvas id="c4"></canvas>
+  </div>
+</section>
+
+<footer>Data source: <a href="https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset" target="_blank" rel="noopener">Kaggle: IBM HR Analytics Employee Attrition</a></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+const DATA = {"kpis": {"total_employees": 1470, "attrition_rate": 0.16122448979591836, "avg_tenure_leavers": 5.1308016877637135, "avg_tenure_stayers": 7.369018653690187}, "by_department": [{"Department": "Sales", "headcount": 446, "attrition_rate": 0.2062780269058296}, {"Department": "Human Resources", "headcount": 63, "attrition_rate": 0.19047619047619047}, {"Department": "Research & Development", "headcount": 961, "attrition_rate": 0.1383975026014568}], "by_overtime": [{"OverTime": "Yes", "headcount": 416, "attrition_rate": 0.30528846153846156}, {"OverTime": "No", "headcount": 1054, "attrition_rate": 0.10436432637571158}], "by_jobrole": [{"JobRole": "Sales Representative", "headcount": 83, "attrition_rate": 0.39759036144578314}, {"JobRole": "Laboratory Technician", "headcount": 259, "attrition_rate": 0.23938223938223938}, {"JobRole": "Human Resources", "headcount": 52, "attrition_rate": 0.23076923076923078}, {"JobRole": "Sales Executive", "headcount": 326, "attrition_rate": 0.17484662576687116}, {"JobRole": "Research Scientist", "headcount": 292, "attrition_rate": 0.16095890410958905}, {"JobRole": "Manufacturing Director", "headcount": 145, "attrition_rate": 0.06896551724137931}, {"JobRole": "Healthcare Representative", "headcount": 131, "attrition_rate": 0.06870229007633588}, {"JobRole": "Manager", "headcount": 102, "attrition_rate": 0.049019607843137254}, {"JobRole": "Research Director", "headcount": 80, "attrition_rate": 0.025}], "by_satisfaction": [{"JobSatisfaction": 1, "headcount": 289, "attrition_rate": 0.22837370242214533}, {"JobSatisfaction": 2, "headcount": 280, "attrition_rate": 0.16428571428571428}, {"JobSatisfaction": 3, "headcount": 442, "attrition_rate": 0.16515837104072398}, {"JobSatisfaction": 4, "headcount": 459, "attrition_rate": 0.11328976034858387}], "by_tenure": [{"TenureBucket": "0-2", "headcount": 342, "attrition_rate": 0.2982456140350877}, {"TenureBucket": "3-5", "headcount": 434, "attrition_rate": 0.1382488479262673}, {"TenureBucket": "6-10", "headcount": 448, "attrition_rate": 0.12276785714285714}, {"TenureBucket": "11-15", "headcount": 108, "attrition_rate": 0.06481481481481481}, {"TenureBucket": "16-20", "headcount": 72, "attrition_rate": 0.06944444444444445}, {"TenureBucket": "20+", "headcount": 66, "attrition_rate": 0.12121212121212122}]};
+const ACCENT = "#a34e64";
+const ACCENT_SOFT = "#f0d3dc";
+
+const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const TEXT_COLOR = isDark ? '#cfcfcf' : '#3a3a3a';
+const GRID_COLOR = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)';
+Chart.defaults.color = TEXT_COLOR;
+Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+
+function fmtMoney(v) {
+  const sign = v < 0 ? '-' : '';
+  v = Math.abs(v);
+  if (v >= 1e12) return sign + '$' + (v/1e12).toFixed(2) + 'T';
+  if (v >= 1e9) return sign + '$' + (v/1e9).toFixed(2) + 'B';
+  if (v >= 1e6) return sign + '$' + (v/1e6).toFixed(1) + 'M';
+  if (v >= 1e3) return sign + '$' + (v/1e3).toFixed(1) + 'K';
+  return sign + '$' + v.toFixed(0);
+}
+function fmtPct(v) { return (v*100).toFixed(1) + '%'; }
+function fmtCount(v) { return Math.round(v).toLocaleString(); }
+function fmtDays(v) { return v.toFixed(1) + ' days'; }
+function fmtRange(v) { return v.toFixed(0) + ' mi'; }
+function fmtPct100(v) { return v.toFixed(1) + '%'; }
+const FORMATTERS = {money: fmtMoney, pct: fmtPct, count: fmtCount, days: fmtDays, range: fmtRange, pct100: fmtPct100};
+
+function buildChart(spec) {
+  const rows = DATA[spec.dataKey];
+  const labels = rows.map(r => r[spec.labelField]);
+  const values = rows.map(r => r[spec.valueField]);
+  const fmt = FORMATTERS[spec.format];
+  const horizontal = !!spec.horizontal;
+  new Chart(document.getElementById(spec.id), {
+    type: spec.type,
+    data: {
+      labels,
+      datasets: [{
+        label: spec.title,
+        data: values,
+        backgroundColor: spec.type === 'line' ? ACCENT_SOFT : ACCENT,
+        borderColor: ACCENT,
+        borderWidth: spec.type === 'line' ? 2 : 0,
+        borderRadius: spec.type === 'bar' ? 5 : 0,
+        pointRadius: spec.type === 'line' ? 3 : 0,
+        pointBackgroundColor: ACCENT,
+        fill: spec.type === 'line',
+        tension: spec.type === 'line' ? 0.3 : 0,
+        maxBarThickness: 46,
+      }]
+    },
+    options: {
+      indexAxis: horizontal ? 'y' : 'x',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: isDark ? '#2a2b2e' : '#ffffff',
+          titleColor: TEXT_COLOR,
+          bodyColor: TEXT_COLOR,
+          borderColor: ACCENT,
+          borderWidth: 1,
+          padding: 10,
+          callbacks: {
+            label: (ctx) => fmt(horizontal ? ctx.parsed.x : ctx.parsed.y)
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: horizontal, color: GRID_COLOR },
+          ticks: horizontal ? { callback: (v) => fmt(v) } : {}
+        },
+        y: {
+          grid: { display: !horizontal, color: GRID_COLOR },
+          ticks: horizontal ? {} : { callback: (v) => fmt(v) },
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
+
+const CHARTS = [{"id": "c1", "type": "bar", "dataKey": "by_department", "labelField": "Department", "valueField": "attrition_rate", "format": "pct", "title": "Attrition Rate by Department"}, {"id": "c2", "type": "bar", "dataKey": "by_overtime", "labelField": "OverTime", "valueField": "attrition_rate", "format": "pct", "title": "Attrition Rate by Overtime Status"}, {"id": "c3", "type": "bar", "dataKey": "by_jobrole", "labelField": "JobRole", "valueField": "attrition_rate", "format": "pct", "title": "Attrition Rate by Job Role", "horizontal": true}, {"id": "c4", "type": "bar", "dataKey": "by_tenure", "labelField": "TenureBucket", "valueField": "attrition_rate", "format": "pct", "title": "Attrition Rate by Tenure Bucket"}];
+CHARTS.forEach(buildChart);
+</script>
+</body>
+</html>

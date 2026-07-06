@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S&P 500 Financial Performance Dashboard</title>
+<style>
+  :root {
+    --accent: #96721c;
+    --accent-soft: #e6d6ad;
+    --ink: #1c1c1c;
+    --ink-muted: #5b5b5b;
+    --surface: #ffffff;
+    --surface-alt: #f5f5f4;
+    --border: #e4e2df;
+    --font: Georgia, 'Times New Roman', serif;
+    --heading-transform: none;
+    --heading-tracking: 0;
+    --radius: 3px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #ececec;
+      --ink-muted: #a8a8a8;
+      --surface: #17181a;
+      --surface-alt: #202124;
+      --border: #313234;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    background: var(--surface-alt);
+    color: var(--ink);
+    padding: 32px clamp(16px, 4vw, 48px) 64px;
+  }
+  header {
+    margin-bottom: 28px;
+  }
+  header .eyebrow {
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+  h1 {
+    margin: 6px 0 4px;
+    font-size: clamp(22px, 3vw, 32px);
+    text-transform: var(--heading-transform);
+    letter-spacing: var(--heading-tracking);
+  }
+  header p {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 14px;
+    max-width: 640px;
+  }
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .kpi {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+  .kpi .label {
+    font-size: 12px;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .kpi .value {
+    font-size: clamp(20px, 2.4vw, 26px);
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 16px;
+  }
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px 12px;
+    min-width: 0;
+  }
+  .chart-card h3 {
+    margin: 0 0 2px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .chart-card .sub {
+    margin: 0 0 12px;
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  .chart-card canvas {
+    max-height: 260px;
+  }
+  footer {
+    margin-top: 32px;
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">data-dashboards-101 &middot; project 4</div>
+  <h1>S&P 500 Financial Performance</h1>
+  <p>Revenue, profitability, and growth across S&P 500 companies.</p>
+</header>
+
+<section class="kpis">
+  <div class="kpi"><div class="label">Combined Revenue</div><div class="value">$15.71T</div></div>
+  <div class="kpi"><div class="label">Combined Net Income</div><div class="value">$1.54T</div></div>
+  <div class="kpi"><div class="label">Avg Net Margin</div><div class="value">13.9%</div></div>
+  <div class="kpi"><div class="label">Avg Revenue Growth (YoY)</div><div class="value">13.0%</div></div>
+</section>
+
+<section class="charts-grid">
+  <div class="chart-card">
+    <h3>Top 10 Companies by Revenue</h3>
+    
+    <canvas id="c1"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Top 10 Companies by Net Margin</h3>
+    
+    <canvas id="c2"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Top 10 Companies by Revenue Growth YoY</h3>
+    
+    <canvas id="c3"></canvas>
+  </div>
+  <div class="chart-card">
+    <h3>Net Margin Distribution Across S&P 500</h3>
+    
+    <canvas id="c4"></canvas>
+  </div>
+</section>
+
+<footer>Data source: <a href="https://www.kaggle.com/datasets/ilyaryabov/financial-performance-of-companies-from-sp500" target="_blank" rel="noopener">Kaggle: Financial Performance of Companies from S&P500</a></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+const DATA = {"kpis": {"total_revenue": 15706918300000.0, "total_income": 1538927800000.0, "avg_net_margin": 13.933264887063656, "avg_rev_growth": 13.030040322580644, "company_count": 496}, "top_revenue": [{"Company": "WMT", "Revenue_num": 611290000000.0, "Income_num": 11680000000.0, "NetMargin_num": 2.3}, {"Company": "AMZN", "Revenue_num": 513980000000.0, "Income_num": -2722000000.0, "NetMargin_num": -0.5}, {"Company": "XOM", "Revenue_num": 398680000000.0, "Income_num": 55710000000.0, "NetMargin_num": 14.0}, {"Company": "AAPL", "Revenue_num": 387540000000.0, "Income_num": 95170000000.0, "NetMargin_num": 24.6}, {"Company": "UNH", "Revenue_num": 324160000000.0, "Income_num": 20120000000.0, "NetMargin_num": 6.2}, {"Company": "CVS", "Revenue_num": 322470000000.0, "Income_num": 4150000000.0000005, "NetMargin_num": 1.3}, {"Company": "BRK-B", "Revenue_num": 302090000000.0, "Income_num": NaN, "NetMargin_num": NaN}, {"Company": "GOOG", "Revenue_num": 282840000000.0, "Income_num": NaN, "NetMargin_num": NaN}, {"Company": "GOOGL", "Revenue_num": 282840000000.0, "Income_num": 59970000000.0, "NetMargin_num": 21.2}, {"Company": "MCK", "Revenue_num": 273899999999.99997, "Income_num": 3150000000.0, "NetMargin_num": 1.1}], "top_margin": [{"Company": "PSA", "NetMargin_num": 99.0, "Revenue_num": 4179999999.9999995}, {"Company": "ROP", "NetMargin_num": 84.6, "Revenue_num": 5370000000.0}, {"Company": "STT", "NetMargin_num": 65.1, "Revenue_num": 4090000000.0}, {"Company": "PLD", "NetMargin_num": 56.2, "Revenue_num": 5970000000.0}, {"Company": "CME", "NetMargin_num": 52.9, "Revenue_num": 5020000000.0}, {"Company": "V", "NetMargin_num": 49.2, "Revenue_num": 30190000000.0}, {"Company": "VRSN", "NetMargin_num": 47.3, "Revenue_num": 1420000000.0}, {"Company": "CPT", "NetMargin_num": 45.9, "Revenue_num": 1420000000.0}, {"Company": "DD", "NetMargin_num": 45.1, "Revenue_num": 13020000000.0}, {"Company": "FANG", "NetMargin_num": 45.0, "Revenue_num": 9640000000.0}], "top_growth": [{"Company": "BK", "RevGrowth_num": 338.5, "Revenue_num": 7120000000.0}, {"Company": "VNO", "RevGrowth_num": 327.5, "Revenue_num": 1800000000.0}, {"Company": "WBD", "RevGrowth_num": 245.4, "Revenue_num": 33820000000.0}, {"Company": "STT", "RevGrowth_num": 225.7, "Revenue_num": 4090000000.0}, {"Company": "NCLH", "RevGrowth_num": 211.7, "Revenue_num": 4840000000.0}, {"Company": "CCL", "RevGrowth_num": 198.3, "Revenue_num": 12170000000.0}, {"Company": "ALB", "RevGrowth_num": 193.1, "Revenue_num": 7320000000.0}, {"Company": "RCL", "RevGrowth_num": 165.1, "Revenue_num": 8840000000.0}, {"Company": "JPM", "RevGrowth_num": 120.1, "Revenue_num": 92810000000.0}, {"Company": "MTB", "RevGrowth_num": 116.2, "Revenue_num": 6250000000.0}], "margin_distribution": [{"bucket": "<0%", "count": 36}, {"bucket": "0-5%", "count": 66}, {"bucket": "5-10%", "count": 98}, {"bucket": "10-15%", "count": 100}, {"bucket": "15-20%", "count": 64}, {"bucket": "20-25%", "count": 38}, {"bucket": "25-30%", "count": 31}, {"bucket": "30%+", "count": 54}]};
+const ACCENT = "#96721c";
+const ACCENT_SOFT = "#e6d6ad";
+
+const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const TEXT_COLOR = isDark ? '#cfcfcf' : '#3a3a3a';
+const GRID_COLOR = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)';
+Chart.defaults.color = TEXT_COLOR;
+Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+
+function fmtMoney(v) {
+  const sign = v < 0 ? '-' : '';
+  v = Math.abs(v);
+  if (v >= 1e12) return sign + '$' + (v/1e12).toFixed(2) + 'T';
+  if (v >= 1e9) return sign + '$' + (v/1e9).toFixed(2) + 'B';
+  if (v >= 1e6) return sign + '$' + (v/1e6).toFixed(1) + 'M';
+  if (v >= 1e3) return sign + '$' + (v/1e3).toFixed(1) + 'K';
+  return sign + '$' + v.toFixed(0);
+}
+function fmtPct(v) { return (v*100).toFixed(1) + '%'; }
+function fmtCount(v) { return Math.round(v).toLocaleString(); }
+function fmtDays(v) { return v.toFixed(1) + ' days'; }
+function fmtRange(v) { return v.toFixed(0) + ' mi'; }
+function fmtPct100(v) { return v.toFixed(1) + '%'; }
+const FORMATTERS = {money: fmtMoney, pct: fmtPct, count: fmtCount, days: fmtDays, range: fmtRange, pct100: fmtPct100};
+
+function buildChart(spec) {
+  const rows = DATA[spec.dataKey];
+  const labels = rows.map(r => r[spec.labelField]);
+  const values = rows.map(r => r[spec.valueField]);
+  const fmt = FORMATTERS[spec.format];
+  const horizontal = !!spec.horizontal;
+  new Chart(document.getElementById(spec.id), {
+    type: spec.type,
+    data: {
+      labels,
+      datasets: [{
+        label: spec.title,
+        data: values,
+        backgroundColor: spec.type === 'line' ? ACCENT_SOFT : ACCENT,
+        borderColor: ACCENT,
+        borderWidth: spec.type === 'line' ? 2 : 0,
+        borderRadius: spec.type === 'bar' ? 5 : 0,
+        pointRadius: spec.type === 'line' ? 3 : 0,
+        pointBackgroundColor: ACCENT,
+        fill: spec.type === 'line',
+        tension: spec.type === 'line' ? 0.3 : 0,
+        maxBarThickness: 46,
+      }]
+    },
+    options: {
+      indexAxis: horizontal ? 'y' : 'x',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: isDark ? '#2a2b2e' : '#ffffff',
+          titleColor: TEXT_COLOR,
+          bodyColor: TEXT_COLOR,
+          borderColor: ACCENT,
+          borderWidth: 1,
+          padding: 10,
+          callbacks: {
+            label: (ctx) => fmt(horizontal ? ctx.parsed.x : ctx.parsed.y)
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: horizontal, color: GRID_COLOR },
+          ticks: horizontal ? { callback: (v) => fmt(v) } : {}
+        },
+        y: {
+          grid: { display: !horizontal, color: GRID_COLOR },
+          ticks: horizontal ? {} : { callback: (v) => fmt(v) },
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
+
+const CHARTS = [{"id": "c1", "type": "bar", "dataKey": "top_revenue", "labelField": "Company", "valueField": "Revenue_num", "format": "money", "title": "Top 10 Companies by Revenue", "horizontal": true}, {"id": "c2", "type": "bar", "dataKey": "top_margin", "labelField": "Company", "valueField": "NetMargin_num", "format": "pct100", "title": "Top 10 Companies by Net Margin"}, {"id": "c3", "type": "bar", "dataKey": "top_growth", "labelField": "Company", "valueField": "RevGrowth_num", "format": "pct100", "title": "Top 10 Companies by Revenue Growth YoY"}, {"id": "c4", "type": "bar", "dataKey": "margin_distribution", "labelField": "bucket", "valueField": "count", "format": "count", "title": "Net Margin Distribution Across S&P 500"}];
+CHARTS.forEach(buildChart);
+</script>
+</body>
+</html>
