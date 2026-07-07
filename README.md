@@ -12,7 +12,7 @@
 | 4 | [Financial Performance (S&P 500)](04-financial-performance/README.md) | company revenue, margin, growth rankings | [dashboard.html](04-financial-performance/dashboard.html) |
 | 5 | [IBM HR Attrition](05-hr-attrition/README.md) | attrition risk, driver analysis | [dashboard.html](05-hr-attrition/dashboard.html) |
 
-Each reference dashboard is a self-contained HTML file (open directly in a browser, no server needed) — built with Claude, real data, and a distinct color theme per project. They're the "answer key" — try building your own first.
+Each reference dashboard is a self-contained HTML file (open directly in a browser, no server needed) — built with Claude, real data, PowerBI-style filter dropdowns that actually cross-filter the KPIs and charts, a light flat theme (no dark mode), and a distinct accent color per project. They're the "answer key" — try building your own first.
 
 ## How to Build
 

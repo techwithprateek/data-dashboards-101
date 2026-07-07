@@ -8,108 +8,136 @@
   :root {
     --accent: #96721c;
     --accent-soft: #e6d6ad;
-    --ink: #1c1c1c;
-    --ink-muted: #5b5b5b;
-    --surface: #ffffff;
-    --surface-alt: #f5f5f4;
-    --border: #e4e2df;
-    --font: Georgia, 'Times New Roman', serif;
-    --heading-transform: none;
-    --heading-tracking: 0;
-    --radius: 3px;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --ink: #ececec;
-      --ink-muted: #a8a8a8;
-      --surface: #17181a;
-      --surface-alt: #202124;
-      --border: #313234;
-    }
+    --page-bg: #f3f2f1;
+    --card-bg: #ffffff;
+    --border: #e1dfdd;
+    --text: #252423;
+    --text-muted: #605e5c;
+    --font: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
     font-family: var(--font);
-    background: var(--surface-alt);
-    color: var(--ink);
-    padding: 32px clamp(16px, 4vw, 48px) 64px;
+    background: var(--page-bg);
+    color: var(--text);
+    padding: 24px clamp(16px, 3vw, 40px) 56px;
   }
-  header {
-    margin-bottom: 28px;
-  }
+  header { margin-bottom: 16px; }
   header .eyebrow {
     color: var(--accent);
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 11px;
   }
   h1 {
-    margin: 6px 0 4px;
-    font-size: clamp(22px, 3vw, 32px);
-    text-transform: var(--heading-transform);
-    letter-spacing: var(--heading-tracking);
+    margin: 4px 0 2px;
+    font-size: 22px;
+    font-weight: 600;
   }
   header p {
     margin: 0;
-    color: var(--ink-muted);
-    font-size: 14px;
+    color: var(--text-muted);
+    font-size: 13px;
     max-width: 640px;
   }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 14px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 18px 0;
+  }
+  .filter { display: flex; flex-direction: column; gap: 4px; }
+  .filter label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .filter select {
+    font-family: var(--font);
+    font-size: 13px;
+    padding: 6px 28px 6px 8px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--text);
+    min-width: 140px;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%23605e5c'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
+  }
+  .filter select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .reset-btn {
+    font-family: var(--font);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 7px 12px;
+    cursor: pointer;
+    align-self: flex-end;
+  }
+  .reset-btn:hover { background: var(--accent-soft); }
   .kpis {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-    margin-bottom: 24px;
+    gap: 10px;
+    margin-bottom: 14px;
   }
   .kpi {
-    background: var(--surface);
+    background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px 18px;
+    border-top: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 14px 16px;
   }
   .kpi .label {
-    font-size: 12px;
-    color: var(--ink-muted);
+    font-size: 11px;
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
     margin-bottom: 6px;
   }
   .kpi .value {
-    font-size: clamp(20px, 2.4vw, 26px);
+    font-size: 22px;
     font-weight: 700;
-    color: var(--accent);
+    color: var(--text);
   }
   .charts-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-    gap: 16px;
+    gap: 12px;
   }
   .chart-card {
-    background: var(--surface);
+    background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 18px 20px 12px;
+    border-radius: 4px;
+    padding: 14px 16px 8px;
     min-width: 0;
   }
   .chart-card h3 {
-    margin: 0 0 2px;
-    font-size: 15px;
-    font-weight: 700;
+    margin: 0 0 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
   }
-  .chart-card .sub {
-    margin: 0 0 12px;
-    font-size: 12px;
-    color: var(--ink-muted);
-  }
-  .chart-card canvas {
-    max-height: 260px;
-  }
+  .chart-card canvas { max-height: 250px; }
   footer {
-    margin-top: 32px;
-    font-size: 12px;
-    color: var(--ink-muted);
+    margin-top: 24px;
+    font-size: 11px;
+    color: var(--text-muted);
   }
   footer a { color: var(--accent); }
 </style>
@@ -121,32 +149,53 @@
   <p>Revenue, profitability, and growth across S&P 500 companies.</p>
 </header>
 
+<div class="filters" id="filters-bar">
+  <div class="filter">
+    <label for="filter-margin-tier">Net Margin Tier</label>
+    <select id="filter-margin-tier" onchange="renderAll()">
+      <option value="All">All</option>
+      <option value="<0%"><0%</option>
+      <option value="0-10%">0-10%</option>
+      <option value="10-20%">10-20%</option>
+      <option value="20-30%">20-30%</option>
+      <option value="30%+">30%+</option>
+    </select>
+  </div>
+  <div class="filter">
+    <label for="filter-rev-tier">Revenue Tier</label>
+    <select id="filter-rev-tier" onchange="renderAll()">
+      <option value="All">All</option>
+      <option value="Small Cap">Small Cap</option>
+      <option value="Mid Cap">Mid Cap</option>
+      <option value="Large Cap">Large Cap</option>
+      <option value="Mega Cap">Mega Cap</option>
+    </select>
+  </div>
+  <button class="reset-btn" onclick="resetFilters()">&#8635; Reset</button>
+</div>
+
 <section class="kpis">
-  <div class="kpi"><div class="label">Combined Revenue</div><div class="value">$15.71T</div></div>
-  <div class="kpi"><div class="label">Combined Net Income</div><div class="value">$1.54T</div></div>
-  <div class="kpi"><div class="label">Avg Net Margin</div><div class="value">13.9%</div></div>
-  <div class="kpi"><div class="label">Avg Revenue Growth (YoY)</div><div class="value">13.0%</div></div>
+  <div class="kpi"><div class="label">Combined Revenue</div><div class="value" id="kpi-revenue">—</div></div>
+  <div class="kpi"><div class="label">Combined Net Income</div><div class="value" id="kpi-income">—</div></div>
+  <div class="kpi"><div class="label">Avg Net Margin</div><div class="value" id="kpi-margin">—</div></div>
+  <div class="kpi"><div class="label">Avg Revenue Growth (YoY)</div><div class="value" id="kpi-growth">—</div></div>
 </section>
 
 <section class="charts-grid">
   <div class="chart-card">
     <h3>Top 10 Companies by Revenue</h3>
-    
     <canvas id="c1"></canvas>
   </div>
   <div class="chart-card">
     <h3>Top 10 Companies by Net Margin</h3>
-    
     <canvas id="c2"></canvas>
   </div>
   <div class="chart-card">
     <h3>Top 10 Companies by Revenue Growth YoY</h3>
-    
     <canvas id="c3"></canvas>
   </div>
   <div class="chart-card">
-    <h3>Net Margin Distribution Across S&P 500</h3>
-    
+    <h3>Net Margin Distribution</h3>
     <canvas id="c4"></canvas>
   </div>
 </section>
@@ -155,17 +204,19 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script>
-const DATA = {"kpis": {"total_revenue": 15706918300000.0, "total_income": 1538927800000.0, "avg_net_margin": 13.933264887063656, "avg_rev_growth": 13.030040322580644, "company_count": 496}, "top_revenue": [{"Company": "WMT", "Revenue_num": 611290000000.0, "Income_num": 11680000000.0, "NetMargin_num": 2.3}, {"Company": "AMZN", "Revenue_num": 513980000000.0, "Income_num": -2722000000.0, "NetMargin_num": -0.5}, {"Company": "XOM", "Revenue_num": 398680000000.0, "Income_num": 55710000000.0, "NetMargin_num": 14.0}, {"Company": "AAPL", "Revenue_num": 387540000000.0, "Income_num": 95170000000.0, "NetMargin_num": 24.6}, {"Company": "UNH", "Revenue_num": 324160000000.0, "Income_num": 20120000000.0, "NetMargin_num": 6.2}, {"Company": "CVS", "Revenue_num": 322470000000.0, "Income_num": 4150000000.0000005, "NetMargin_num": 1.3}, {"Company": "BRK-B", "Revenue_num": 302090000000.0, "Income_num": NaN, "NetMargin_num": NaN}, {"Company": "GOOG", "Revenue_num": 282840000000.0, "Income_num": NaN, "NetMargin_num": NaN}, {"Company": "GOOGL", "Revenue_num": 282840000000.0, "Income_num": 59970000000.0, "NetMargin_num": 21.2}, {"Company": "MCK", "Revenue_num": 273899999999.99997, "Income_num": 3150000000.0, "NetMargin_num": 1.1}], "top_margin": [{"Company": "PSA", "NetMargin_num": 99.0, "Revenue_num": 4179999999.9999995}, {"Company": "ROP", "NetMargin_num": 84.6, "Revenue_num": 5370000000.0}, {"Company": "STT", "NetMargin_num": 65.1, "Revenue_num": 4090000000.0}, {"Company": "PLD", "NetMargin_num": 56.2, "Revenue_num": 5970000000.0}, {"Company": "CME", "NetMargin_num": 52.9, "Revenue_num": 5020000000.0}, {"Company": "V", "NetMargin_num": 49.2, "Revenue_num": 30190000000.0}, {"Company": "VRSN", "NetMargin_num": 47.3, "Revenue_num": 1420000000.0}, {"Company": "CPT", "NetMargin_num": 45.9, "Revenue_num": 1420000000.0}, {"Company": "DD", "NetMargin_num": 45.1, "Revenue_num": 13020000000.0}, {"Company": "FANG", "NetMargin_num": 45.0, "Revenue_num": 9640000000.0}], "top_growth": [{"Company": "BK", "RevGrowth_num": 338.5, "Revenue_num": 7120000000.0}, {"Company": "VNO", "RevGrowth_num": 327.5, "Revenue_num": 1800000000.0}, {"Company": "WBD", "RevGrowth_num": 245.4, "Revenue_num": 33820000000.0}, {"Company": "STT", "RevGrowth_num": 225.7, "Revenue_num": 4090000000.0}, {"Company": "NCLH", "RevGrowth_num": 211.7, "Revenue_num": 4840000000.0}, {"Company": "CCL", "RevGrowth_num": 198.3, "Revenue_num": 12170000000.0}, {"Company": "ALB", "RevGrowth_num": 193.1, "Revenue_num": 7320000000.0}, {"Company": "RCL", "RevGrowth_num": 165.1, "Revenue_num": 8840000000.0}, {"Company": "JPM", "RevGrowth_num": 120.1, "Revenue_num": 92810000000.0}, {"Company": "MTB", "RevGrowth_num": 116.2, "Revenue_num": 6250000000.0}], "margin_distribution": [{"bucket": "<0%", "count": 36}, {"bucket": "0-5%", "count": 66}, {"bucket": "5-10%", "count": 98}, {"bucket": "10-15%", "count": 100}, {"bucket": "15-20%", "count": 64}, {"bucket": "20-25%", "count": 38}, {"bucket": "25-30%", "count": 31}, {"bucket": "30%+", "count": 54}]};
+const MODE = "rows";
+const DATA = {"rows": [{"co": "A", "rev": 6930000000.0, "inc": 1320000000.0, "margin": 19.1, "growth": 4.9, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "AAL", "rev": 48970000000.0, "inc": 127000000.0, "margin": 0.3, "growth": 39.9, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "AAP", "rev": 11150000000.0, "inc": 501900000.0, "margin": 4.5, "growth": 3.2, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "AAPL", "rev": 387540000000.0, "inc": 95170000000.0, "margin": 24.6, "growth": -5.5, "margin_tier": "20-30%", "rev_tier": "Mega Cap"}, {"co": "ABBV", "rev": 58050000000.0, "inc": 11780000000.0, "margin": 20.3, "growth": 1.6, "margin_tier": "20-30%", "rev_tier": "Mega Cap"}, {"co": "ABC", "rev": 241810000000.0, "inc": 1730000000.0, "margin": 0.7, "growth": 5.4, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "ABT", "rev": 43650000000.0, "inc": 6930000000.0, "margin": 15.9, "growth": -12.0, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "ACN", "rev": 62380000000.0, "inc": 7050000000.0, "margin": 11.3, "growth": 5.2, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "ADBE", "rev": 17610000000.0, "inc": 4760000000.0, "margin": 27.0, "growth": 10.1, "margin_tier": "20-30%", "rev_tier": "Large Cap"}, {"co": "ADI", "rev": 12580000000.0, "inc": 3430000000.0, "margin": 27.3, "growth": 21.1, "margin_tier": "20-30%", "rev_tier": "Mid Cap"}, {"co": "ADM", "rev": 101560000000.0, "inc": 4340000000.0, "margin": 4.3, "growth": 12.3, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "ADP", "rev": 17250000000.0, "inc": 3150000000.0, "margin": 18.2, "growth": 9.1, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "ADSK", "rev": 5000000000.0, "inc": 823000000.0, "margin": 11.1, "growth": 13.7, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "AEE", "rev": 7960000000.0, "inc": 1070000000.0000001, "margin": 13.5, "growth": 32.4, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "AEP", "rev": 19640000000.0, "inc": 2310000000.0, "margin": 11.7, "growth": 20.2, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "AES", "rev": 12620000000.0, "inc": -546000000.0, "margin": -4.3, "growth": 10.5, "margin_tier": "<0%", "rev_tier": "Mid Cap"}, {"co": "AFL", "rev": 19530000000.0, "inc": 4200000000.0, "margin": 21.5, "growth": -26.2, "margin_tier": "20-30%", "rev_tier": "Large Cap"}, {"co": "AIG", "rev": 56440000000.0, "inc": 10250000000.0, "margin": 18.2, "growth": -17.8, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "AIZ", "rev": 10200000000.0, "inc": 276600000.0, "margin": 2.7, "growth": 3.3, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "AJG", "rev": 8550000000.000001, "inc": 1110000000.0, "margin": 13.0, "growth": 2.8, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "AKAM", "rev": 3620000000.0, "inc": 523700000.00000006, "margin": 14.5, "growth": 2.5, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "ALB", "rev": 7320000000.0, "inc": 2690000000.0, "margin": 36.7, "growth": 193.1, "margin_tier": "30%+", "rev_tier": "Mid Cap"}, {"co": "ALGN", "rev": 3730000000.0, "inc": 361600000.0, "margin": 9.7, "growth": -12.6, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "ALK", "rev": 9650000000.0, "inc": 58000000.0, "margin": 0.6, "growth": 30.5, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "ALL", "rev": 51410000000.0, "inc": -1416000000.0, "margin": -2.8, "growth": 4.9, "margin_tier": "<0%", "rev_tier": "Mega Cap"}, {"co": "ALLE", "rev": 3270000000.0, "inc": 458000000.0, "margin": 14.0, "growth": 21.5, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "AMAT", "rev": 26250000000.0, "inc": 6450000000.0, "margin": 24.6, "growth": 7.5, "margin_tier": "20-30%", "rev_tier": "Large Cap"}, {"co": "AMCR", "rev": 14970000000.0, "inc": 1060000000.0, "margin": 7.1, "growth": 3.8, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "AMD", "rev": 23600000000.0, "inc": 1320000000.0, "margin": 5.6, "growth": 16.0, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "AME", "rev": 6150000000.0, "inc": 1160000000.0, "margin": 18.9, "growth": 8.1, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "AMGN", "rev": 26320000000.0, "inc": 6550000000.0, "margin": 24.9, "growth": -0.1, "margin_tier": "20-30%", "rev_tier": "Large Cap"}, {"co": "AMP", "rev": 14350000000.0, "inc": 2560000000.0, "margin": 17.8, "growth": -2.4, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "AMT", "rev": 10710000000.0, "inc": 1770000000.0, "margin": 16.5, "growth": 10.6, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "AMZN", "rev": 513980000000.0, "inc": -2722000000.0, "margin": -0.5, "growth": 8.6, "margin_tier": "<0%", "rev_tier": "Mega Cap"}, {"co": "ANET", "rev": 4380000000.0, "inc": 1350000000.0, "margin": 30.9, "growth": 54.7, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "ANSS", "rev": 2069999999.9999998, "inc": 523700000.00000006, "margin": 25.4, "growth": 5.9, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "AON", "rev": 12480000000.0, "inc": 2590000000.0, "margin": 11.9, "growth": -0.2, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "AOS", "rev": 3750000000.0, "inc": 235700000.0, "margin": 6.3, "growth": -6.0, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "APA", "rev": 11070000000.0, "inc": 3670000000.0, "margin": 33.2, "growth": 7.5, "margin_tier": "30%+", "rev_tier": "Mid Cap"}, {"co": "APD", "rev": 12880000000.0, "inc": 2260000000.0, "margin": 17.6, "growth": 6.0, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "APH", "rev": 12620000000.0, "inc": 1900000000.0, "margin": 15.1, "growth": 7.0, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "APTV", "rev": 17490000000.0, "inc": 531000000.0, "margin": 3.0, "growth": 12.2, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "ARE", "rev": 2590000000.0, "inc": 513299999.99999994, "margin": 19.8, "growth": 16.2, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "ATVI", "rev": 7530000000.0, "inc": 1510000000.0, "margin": 20.1, "growth": 7.9, "margin_tier": "20-30%", "rev_tier": "Mid Cap"}, {"co": "AVB", "rev": 2590000000.0, "inc": 1130000000.0, "margin": 43.8, "growth": 11.4, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "AVGO", "rev": 34410000000.0, "inc": 12600000000.0, "margin": 28.6, "growth": 20.6, "margin_tier": "20-30%", "rev_tier": "Mega Cap"}, {"co": "AVY", "rev": 9040000000.0, "inc": 757100000.0, "margin": 8.4, "growth": -7.2, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "AWK", "rev": 3790000000.0, "inc": 820000000.0, "margin": 21.6, "growth": -2.1, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "AXP", "rev": 54390000000.0, "inc": 7400000000.0, "margin": 13.7, "growth": 22.1, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "AZO", "rev": 16570000000.0, "inc": 2410000000.0, "margin": 14.6, "growth": 8.6, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "BA", "rev": 66610000000.0, "inc": -4940000000.0, "margin": -7.4, "growth": 35.1, "margin_tier": "<0%", "rev_tier": "Mega Cap"}, {"co": "BAC", "rev": 72560000000.0, "inc": 26020000000.0, "margin": 35.9, "growth": 99.7, "margin_tier": "30%+", "rev_tier": "Mega Cap"}, {"co": "BALL", "rev": 15350000000.0, "inc": 719000000.0, "margin": 4.7, "growth": -3.4, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "BAX", "rev": 15110000000.0, "inc": -2433000000.0, "margin": -16.1, "growth": 10.6, "margin_tier": "<0%", "rev_tier": "Large Cap"}, {"co": "BBWI", "rev": 7560000000.0, "inc": 794000000.0, "margin": 12.7, "growth": -4.6, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "BBY", "rev": 47930000000.0, "inc": 1550000000.0, "margin": 3.7, "growth": -11.1, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "BEN", "rev": 8020000000.0, "inc": 961800000.0, "margin": 12.0, "growth": -11.6, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "BF-B", "rev": 4130000000.0, "inc": 886000000.0, "margin": 21.4, "growth": 10.1, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "BIIB", "rev": 10170000000.0, "inc": 3050000000.0, "margin": 29.9, "growth": -6.9, "margin_tier": "20-30%", "rev_tier": "Mid Cap"}, {"co": "BK", "rev": 7120000000.0, "inc": 2360000000.0, "margin": 33.2, "growth": 338.5, "margin_tier": "30%+", "rev_tier": "Mid Cap"}, {"co": "BKNG", "rev": 17090000000.0, "inc": 3060000000.0, "margin": 17.9, "growth": 35.8, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "BKR", "rev": 21160000000.0, "inc": -602000000.0, "margin": -2.8, "growth": 7.7, "margin_tier": "<0%", "rev_tier": "Large Cap"}, {"co": "BLK", "rev": 17870000000.0, "inc": 5180000000.0, "margin": 29.0, "growth": -15.1, "margin_tier": "20-30%", "rev_tier": "Large Cap"}, {"co": "BMY", "rev": 46160000000.0, "inc": 6330000000.0, "margin": 13.7, "growth": -4.8, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "BR", "rev": 5830000000.0, "inc": 532600000.0, "margin": 9.1, "growth": 2.6, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "BRO", "rev": 3570000000.0, "inc": 659200000.0, "margin": 18.4, "growth": 22.1, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "BSX", "rev": 12680000000.0, "inc": 642000000.0, "margin": 5.1, "growth": 3.7, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "BWA", "rev": 15800000000.0, "inc": 944000000.0, "margin": 6.0, "growth": 12.4, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "BXP", "rev": 3110000000.0, "inc": 848100000.0, "margin": 27.3, "growth": 8.0, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "C", "rev": 74410000000.0, "inc": 13930000000.0, "margin": 18.4, "growth": 100.4, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "CAG", "rev": 12040000000.0, "inc": 681700000.0, "margin": 5.7, "growth": 8.3, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "CAH", "rev": 193010000000.0, "inc": -1273000000.0, "margin": -0.7, "growth": 13.2, "margin_tier": "<0%", "rev_tier": "Mega Cap"}, {"co": "CARR", "rev": 20420000000.0, "inc": 3530000000.0, "margin": 17.3, "growth": -0.5, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "CAT", "rev": 59430000000.0, "inc": 6710000000.0, "margin": 11.3, "growth": 20.3, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "CB", "rev": 43170000000.0, "inc": 5310000000.0, "margin": 12.3, "growth": 9.0, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "CBOE", "rev": 3960000000.0, "inc": 233700000.0, "margin": 5.9, "growth": 16.0, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "CBRE", "rev": 30830000000.0, "inc": 1410000000.0, "margin": 4.6, "growth": -4.2, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "CCI", "rev": 6990000000.0, "inc": 1680000000.0, "margin": 24.0, "growth": 6.7, "margin_tier": "20-30%", "rev_tier": "Mid Cap"}, {"co": "CCL", "rev": 12170000000.0, "inc": -6093000000.0, "margin": -50.1, "growth": 198.3, "margin_tier": "<0%", "rev_tier": "Mid Cap"}, {"co": "CDAY", "rev": 1250000000.0, "inc": -73400000.0, "margin": -5.9, "growth": 19.1, "margin_tier": "<0%", "rev_tier": "Small Cap"}, {"co": "CDNS", "rev": 3560000000.0, "inc": 849000000.0, "margin": 23.8, "growth": 16.4, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "CDW", "rev": 23750000000.0, "inc": 1110000000.0, "margin": 4.7, "growth": -1.8, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "CE", "rev": 9670000000.0, "inc": 1900000000.0, "margin": 19.6, "growth": 3.2, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "CEG", "rev": 22640000000.0, "inc": -151000000.0, "margin": -0.7, "growth": 37.4, "margin_tier": "<0%", "rev_tier": "Large Cap"}, {"co": "CF", "rev": 11190000000.0, "inc": 3350000000.0, "margin": 29.9, "growth": 2.7, "margin_tier": "20-30%", "rev_tier": "Mid Cap"}, {"co": "CFG", "rev": 7060000000.0, "inc": 1960000000.0, "margin": 27.8, "growth": 87.4, "margin_tier": "20-30%", "rev_tier": "Mid Cap"}, {"co": "CHD", "rev": 5380000000.0, "inc": 413900000.0, "margin": 7.7, "growth": 4.9, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "CHRW", "rev": 24700000000.0, "inc": 940500000.0, "margin": 3.8, "growth": -22.1, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "CHTR", "rev": 54020000000.0, "inc": 5050000000.0, "margin": 9.4, "growth": 3.5, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "CI", "rev": 180020000000.0, "inc": 6670000000.0, "margin": 3.7, "growth": 0.0, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "CINF", "rev": 6560000000.0, "inc": -486000000.0, "margin": -7.4, "growth": -6.3, "margin_tier": "<0%", "rev_tier": "Mid Cap"}, {"co": "CL", "rev": 17970000000.0, "inc": 1780000000.0, "margin": 9.9, "growth": 5.1, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "CLX", "rev": 7070000000.0, "inc": 435000000.0, "margin": 6.2, "growth": 1.4, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "CMA", "rev": 2670000000.0, "inc": 1120000000.0, "margin": 42.0, "growth": 84.8, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "CMCSA", "rev": 121430000000.0, "inc": 5370000000.0, "margin": 4.4, "growth": 0.7, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "CME", "rev": 5020000000.0, "inc": 2660000000.0, "margin": 52.9, "growth": 5.3, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "CMG", "rev": 8630000000.0, "inc": 899100000.0, "margin": 10.4, "growth": 11.2, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "CMI", "rev": 28070000000.0, "inc": 2150000000.0, "margin": 7.7, "growth": 32.8, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "CMS", "rev": 8600000000.0, "inc": 758000000.0, "margin": 9.6, "growth": 12.1, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "CNC", "rev": 144550000000.0, "inc": 1200000000.0, "margin": 0.8, "growth": 9.2, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "CNP", "rev": 9320000000.0, "inc": 1010000000.0, "margin": 10.8, "growth": 17.2, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "COF", "rev": 31240000000.0, "inc": 7040000000.0, "margin": 22.6, "growth": 34.1, "margin_tier": "20-30%", "rev_tier": "Mega Cap"}, {"co": "COO", "rev": 3310000000.0, "inc": 385900000.0, "margin": 13.0, "growth": 11.7, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "COP", "rev": 78490000000.0, "inc": 18680000000.0, "margin": 23.8, "growth": 22.7, "margin_tier": "20-30%", "rev_tier": "Mega Cap"}, {"co": "COST", "rev": 234390000000.0, "inc": 6050000000.0, "margin": 2.5, "growth": 8.1, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "CPB", "rev": 8900000000.0, "inc": 793000000.0, "margin": 8.9, "growth": 15.2, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "CPRT", "rev": 3670000000.0, "inc": 1080000000.0, "margin": 29.5, "growth": 10.3, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "CPT", "rev": 1420000000.0, "inc": 652600000.0, "margin": 45.9, "growth": 23.1, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "CRL", "rev": 3980000000.0, "inc": 486200000.0, "margin": 12.2, "growth": 21.5, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "CRM", "rev": 31350000000.0, "inc": 208000000.0, "margin": 1.7, "growth": 14.2, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "CSCO", "rev": 53160000000.0, "inc": 11300000000.0, "margin": 21.3, "growth": 6.9, "margin_tier": "20-30%", "rev_tier": "Mega Cap"}, {"co": "CSX", "rev": 14850000000.0, "inc": 4170000000.0, "margin": 28.0, "growth": 8.8, "margin_tier": "20-30%", "rev_tier": "Large Cap"}, {"co": "CTAS", "rev": 8380000000.000001, "inc": 1280000000.0, "margin": 15.3, "growth": -43.1, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "CTLT", "rev": 4760000000.0, "inc": 409000000.0, "margin": 8.6, "growth": -5.6, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "CTRA", "rev": 9050000000.0, "inc": 4059999999.9999995, "margin": 44.8, "growth": 2.5, "margin_tier": "30%+", "rev_tier": "Mid Cap"}, {"co": "CTSH", "rev": 19430000000.0, "inc": 2290000000.0, "margin": 11.8, "growth": 1.3, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "CTVA", "rev": 17450000000.0, "inc": 1210000000.0, "margin": 6.6, "growth": 9.9, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "CVS", "rev": 322470000000.0, "inc": 4150000000.0000005, "margin": 1.3, "growth": 9.5, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "CVX", "rev": 235720000000.0, "inc": 35470000000.0, "margin": 15.0, "growth": 18.9, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "CZR", "rev": 10820000000.0, "inc": -513000000.0, "margin": -13.6, "growth": 7.5, "margin_tier": "<0%", "rev_tier": "Mid Cap"}, {"co": "D", "rev": 17170000000.000002, "inc": 892000000.0, "margin": 5.2, "growth": 26.6, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "DAL", "rev": 50580000000.0, "inc": 1320000000.0, "margin": 2.6, "growth": 41.9, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "DD", "rev": 13020000000.0, "inc": 1010000000.0, "margin": 45.1, "growth": -4.4, "margin_tier": "30%+", "rev_tier": "Large Cap"}, {"co": "DE", "rev": 55330000000.0, "inc": 8189999999.999999, "margin": 14.8, "growth": 32.2, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "DFS", "rev": 12860000000.0, "inc": 4300000000.0, "margin": 33.5, "growth": 40.6, "margin_tier": "30%+", "rev_tier": "Large Cap"}, {"co": "DG", "rev": 36290000000.0, "inc": 2350000000.0, "margin": 6.5, "growth": 11.1, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "DGX", "rev": 9880000000.0, "inc": 942000000.0, "margin": 9.5, "growth": -15.0, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "DHI", "rev": 33680000000.0, "inc": 5670000000.0, "margin": 16.8, "growth": 2.9, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "DHR", "rev": 31470000000.0, "inc": 7100000000.0, "margin": 22.6, "growth": 2.7, "margin_tier": "20-30%", "rev_tier": "Mega Cap"}, {"co": "DIS", "rev": 84420000000.0, "inc": 3320000000.0, "margin": 3.9, "growth": 7.8, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "DISH", "rev": 16680000000.0, "inc": 2300000000.0, "margin": 13.8, "growth": -9.1, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "DLR", "rev": 4690000000.0, "inc": 337000000.0, "margin": 7.2, "growth": 11.0, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "DLTR", "rev": 28330000000.0, "inc": 1620000000.0, "margin": 5.5, "growth": 8.1, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "DOV", "rev": 8510000000.0, "inc": 1040000000.0, "margin": 12.5, "growth": 7.5, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "DOW", "rev": 56900000000.0, "inc": 4560000000.0, "margin": 8.0, "growth": -17.4, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "DPZ", "rev": 4540000000.0, "inc": 452300000.0, "margin": 10.0, "growth": 3.6, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "DRI", "rev": 9980000000.0, "inc": 910700000.0, "margin": 9.1, "growth": 9.4, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "DTE", "rev": 19230000000.0, "inc": 1080000000.0, "margin": 5.6, "growth": -3.7, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "DUK", "rev": 28770000000.0, "inc": 3770000000.0, "margin": 8.5, "growth": 21.2, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "DVA", "rev": 11610000000.0, "inc": 546900000.0, "margin": 4.8, "growth": -0.9, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "DVN", "rev": 19170000000.0, "inc": 5960000000.0, "margin": 31.1, "growth": 0.6, "margin_tier": "30%+", "rev_tier": "Large Cap"}, {"co": "DXC", "rev": 14850000000.0, "inc": 718000000.0, "margin": 4.8, "growth": -12.8, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "DXCM", "rev": 2910000000.0, "inc": 341200000.0, "margin": 11.7, "growth": 16.8, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "EA", "rev": 7380000000.0, "inc": 1040000000.0, "margin": 14.1, "growth": 5.1, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "EBAY", "rev": 9790000000.0, "inc": -1274000000.0, "margin": -13.0, "growth": -3.9, "margin_tier": "<0%", "rev_tier": "Mid Cap"}, {"co": "ECL", "rev": 14190000000.0, "inc": 1090000000.0, "margin": 7.7, "growth": 9.1, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "ED", "rev": 15670000000.0, "inc": 1660000000.0, "margin": 10.6, "growth": 18.0, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "EFX", "rev": 5120000000.0, "inc": 696300000.0, "margin": 13.6, "growth": -4.4, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "EIX", "rev": 17220000000.0, "inc": 612000000.0, "margin": 3.9, "growth": 20.6, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "EL", "rev": 16360000000.0, "inc": 1490000000.0, "margin": 9.1, "growth": -16.6, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "EMN", "rev": 10580000000.0, "inc": 793000000.0, "margin": 7.5, "growth": -11.9, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "EMR", "rev": 18530000000.0, "inc": 2660000000.0, "margin": 25.2, "growth": 6.9, "margin_tier": "20-30%", "rev_tier": "Large Cap"}, {"co": "ENPH", "rev": 2330000000.0, "inc": 397400000.0, "margin": 17.0, "growth": 75.6, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "EOG", "rev": 25630000000.0, "inc": 7760000000.0, "margin": 30.3, "growth": 11.1, "margin_tier": "30%+", "rev_tier": "Large Cap"}, {"co": "EPAM", "rev": 4820000000.0, "inc": 419400000.0, "margin": 8.7, "growth": 11.2, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "EQIX", "rev": 7260000000.0, "inc": 704300000.0, "margin": 9.7, "growth": 9.6, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "EQR", "rev": 2740000000.0, "inc": 773800000.0, "margin": 28.3, "growth": 8.5, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "ES", "rev": 12220000000.0, "inc": 1400000000.0, "margin": 11.5, "growth": 15.5, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "ESS", "rev": 1610000000.0, "inc": 408300000.0, "margin": 25.4, "growth": 11.7, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "ETN", "rev": 20750000000.0, "inc": 2460000000.0, "margin": 11.9, "growth": 12.2, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "ETR", "rev": 13760000000.0, "inc": 1100000000.0, "margin": 8.0, "growth": 20.2, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "ETSY", "rev": 2570000000.0, "inc": -694300000.0, "margin": -27.1, "growth": 12.6, "margin_tier": "<0%", "rev_tier": "Small Cap"}, {"co": "EVRG", "rev": 5860000000.0, "inc": 752700000.0, "margin": 12.8, "growth": 14.0, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "EW", "rev": 5380000000.0, "inc": 1520000000.0, "margin": 28.3, "growth": 1.4, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "EXC", "rev": 19080000000.0, "inc": 2049999999.9999998, "margin": 11.4, "growth": 5.5, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "EXPD", "rev": 17070000000.0, "inc": 1360000000.0, "margin": 8.0, "growth": -36.2, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "EXPE", "rev": 11670000000.0, "inc": 352000000.0, "margin": 3.0, "growth": 14.9, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "EXR", "rev": 1920000000.0, "inc": 859500000.0, "margin": 44.7, "growth": 18.6, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "F", "rev": 158060000000.0, "inc": -1981000000.0, "margin": -1.3, "growth": 16.8, "margin_tier": "<0%", "rev_tier": "Mega Cap"}, {"co": "FANG", "rev": 9640000000.0, "inc": 4340000000.0, "margin": 45.0, "growth": 0.4, "margin_tier": "30%+", "rev_tier": "Mid Cap"}, {"co": "FAST", "rev": 6980000000.0, "inc": 1090000000.0, "margin": 15.6, "growth": 10.7, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "FCX", "rev": 22780000000.0, "inc": 3460000000.0, "margin": 15.2, "growth": -6.6, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "FDS", "rev": 1920000000.0, "inc": 426100000.0, "margin": 22.1, "growth": 18.9, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "FDX", "rev": 94090000000.0, "inc": 3330000000.0, "margin": 3.5, "growth": -2.8, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "FE", "rev": 12460000000.0, "inc": 406000000.0, "margin": 3.3, "growth": 19.4, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "FFIV", "rev": 2710000000.0, "inc": 301000000.0, "margin": 11.1, "growth": 1.9, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "FISV", "rev": 17740000000.0, "inc": 2530000000.0, "margin": 14.3, "growth": 8.8, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "FITB", "rev": 6590000000.0, "inc": 2330000000.0, "margin": 35.3, "growth": 60.2, "margin_tier": "30%+", "rev_tier": "Mid Cap"}, {"co": "FLT", "rev": 3430000000.0, "inc": 954300000.0, "margin": 27.8, "growth": 10.1, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "FMC", "rev": 5800000000.0, "inc": 832100000.0, "margin": 12.7, "growth": 14.7, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "FOXA", "rev": 14290000000.0, "inc": 1510000000.0, "margin": 10.5, "growth": 3.7, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "FRC", "rev": 5720000000.0, "inc": 1510000000.0, "margin": 25.7, "growth": 35.8, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "FRT", "rev": 1030000000.0, "inc": 271500000.0, "margin": 26.3, "growth": 10.6, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "FTNT", "rev": 4420000000.0, "inc": 857300000.0, "margin": 19.4, "growth": 33.1, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "FTV", "rev": 5830000000.0, "inc": 755200000.0, "margin": 13.0, "growth": 11.2, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "GD", "rev": 39410000000.0, "inc": 3390000000.0, "margin": 8.6, "growth": 5.4, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "GE", "rev": 76560000000.0, "inc": 585000000.0, "margin": -0.1, "growth": 7.0, "margin_tier": "<0%", "rev_tier": "Mega Cap"}, {"co": "GILD", "rev": 27280000000.0, "inc": 4590000000.0, "margin": 16.8, "growth": 2.0, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "GIS", "rev": 19370000000.0, "inc": 2910000000.0, "margin": 15.0, "growth": 3.9, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "GL", "rev": 5210000000.0, "inc": 739700000.0, "margin": 14.2, "growth": 2.0, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "GLW", "rev": 14190000000.0, "inc": 1320000000.0, "margin": 9.3, "growth": -7.3, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "GM", "rev": 156740000000.0, "inc": 8910000000.0, "margin": 5.7, "growth": 28.4, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "GNRC", "rev": 4560000000.0, "inc": 350300000.0, "margin": 7.7, "growth": -1.7, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "GOOGL", "rev": 282840000000.0, "inc": 59970000000.0, "margin": 21.2, "growth": 1.0, "margin_tier": "20-30%", "rev_tier": "Mega Cap"}, {"co": "GPC", "rev": 22100000000.0, "inc": 1180000000.0, "margin": 5.4, "growth": 15.0, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "GPN", "rev": 8980000000.0, "inc": 111500000.0, "margin": 1.2, "growth": 2.7, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "GRMN", "rev": 4860000000.0, "inc": 973600000.0, "margin": 20.0, "growth": -6.1, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "GS", "rev": 68709999999.99999, "inc": 10760000000.0, "margin": 15.7, "growth": 51.1, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "GWW", "rev": 15230000000.0, "inc": 1550000000.0, "margin": 10.2, "growth": 13.2, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "HAL", "rev": 20300000000.0, "inc": 1570000000.0, "margin": 7.7, "growth": 30.5, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "HAS", "rev": 5860000000.0, "inc": 203500000.0, "margin": 3.5, "growth": -16.6, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "HBAN", "rev": 5970000000.0, "inc": 2120000000.0, "margin": 35.6, "growth": 56.9, "margin_tier": "30%+", "rev_tier": "Mid Cap"}, {"co": "HCA", "rev": 60230000000.0, "inc": 5640000000.0, "margin": 9.4, "growth": 2.9, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "HD", "rev": 157400000000.0, "inc": 17110000000.0, "margin": 10.7, "growth": 5.6, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "HES", "rev": 11320000000.0, "inc": 2100000000.0, "margin": 18.5, "growth": 31.2, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "HIG", "rev": 22360000000.0, "inc": 1790000000.0, "margin": 8.0, "growth": 3.4, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "HII", "rev": 10680000000.0, "inc": 579000000.0, "margin": 5.4, "growth": 5.0, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "HLT", "rev": 8770000000.0, "inc": 1250000000.0, "margin": 14.3, "growth": 33.1, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "HOLX", "rev": 4470000000.0, "inc": 990200000.0, "margin": 22.2, "growth": -27.0, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "HON", "rev": 35470000000.0, "inc": 4970000000.0, "margin": 14.0, "growth": 6.1, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "HPE", "rev": 29340000000.0, "inc": 856000000.0, "margin": 12.7, "growth": 7.0, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "HPQ", "rev": 59780000000.0, "inc": 2600000000.0, "margin": 4.4, "growth": -18.8, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "HRL", "rev": 12390000000.0, "inc": 978100000.0, "margin": 7.9, "growth": -2.4, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "HSIC", "rev": 12650000000.0, "inc": 538000000.0, "margin": 4.3, "growth": 1.2, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "HST", "rev": 4910000000.0, "inc": 633000000.0, "margin": 12.9, "growth": 26.6, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "HSY", "rev": 10420000000.0, "inc": 1640000000.0, "margin": 15.8, "growth": 14.0, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "HUM", "rev": 92870000000.0, "inc": 2810000000.0, "margin": 3.0, "growth": 6.6, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "HWM", "rev": 5660000000.0, "inc": 467000000.0, "margin": 8.2, "growth": 17.7, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "IBM", "rev": 60530000000.0, "inc": 1850000000.0, "margin": 2.7, "growth": 0.0, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "ICE", "rev": 9640000000.0, "inc": 1450000000.0, "margin": 15.0, "growth": 2.1, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "IDXX", "rev": 3370000000.0, "inc": 679100000.0, "margin": 20.2, "growth": 3.4, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "IEX", "rev": 3180000000.0, "inc": 586900000.0, "margin": 18.4, "growth": 13.4, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "IFF", "rev": 12440000000.0, "inc": -1868000000.0, "margin": -15.0, "growth": -6.2, "margin_tier": "<0%", "rev_tier": "Mid Cap"}, {"co": "ILMN", "rev": 4580000000.0, "inc": -4404000000.0, "margin": -96.1, "growth": -9.7, "margin_tier": "<0%", "rev_tier": "Small Cap"}, {"co": "INCY", "rev": 3390000000.0, "inc": 340700000.0, "margin": 10.0, "growth": 7.4, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "INTC", "rev": 63050000000.0, "inc": 8010000000.0, "margin": 12.7, "growth": -31.6, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "INTU", "rev": 13680000000.0, "inc": 1950000000.0, "margin": 14.2, "growth": 13.8, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "IP", "rev": 21160000000.0, "inc": 1740000000.0, "margin": 7.1, "growth": 0.9, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "IPG", "rev": 10930000000.0, "inc": 938000000.0, "margin": 8.6, "growth": 1.8, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "IPGP", "rev": 1430000000.0, "inc": 109900000.0, "margin": 7.7, "growth": -8.5, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "IQV", "rev": 14410000000.0, "inc": 1090000000.0, "margin": 8.0, "growth": 5.0, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "IR", "rev": 5920000000.0, "inc": 589500000.0, "margin": 10.2, "growth": 14.4, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "IRM", "rev": 5100000000.0, "inc": 557000000.0, "margin": 10.9, "growth": 10.3, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "ISRG", "rev": 6220000000.0, "inc": 1320000000.0, "margin": 21.3, "growth": 6.7, "margin_tier": "20-30%", "rev_tier": "Mid Cap"}, {"co": "IT", "rev": 5480000000.0, "inc": 807800000.0, "margin": 14.8, "growth": 15.2, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "ITW", "rev": 15930000000.0, "inc": 3030000000.0, "margin": 19.0, "growth": 7.9, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "IVZ", "rev": 6050000000.0, "inc": 683900000.0, "margin": 11.3, "growth": -18.1, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "J", "rev": 15340000000.0, "inc": 646200000.0, "margin": 3.0, "growth": 8.2, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "JBHT", "rev": 14810000000.0, "inc": 969400000.0, "margin": 6.5, "growth": 4.4, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "JCI", "rev": 25500000000.0, "inc": 1270000000.0, "margin": 5.0, "growth": 3.5, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "JKHY", "rev": 2000000000.0, "inc": 352500000.0, "margin": 17.7, "growth": 2.3, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "JNJ", "rev": 94940000000.0, "inc": 17940000000.0, "margin": 18.9, "growth": -4.4, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "JNPR", "rev": 5300000000.0, "inc": 471000000.0, "margin": 8.9, "growth": 11.5, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "JPM", "rev": 92810000000.0, "inc": 35890000000.0, "margin": 38.7, "growth": 120.1, "margin_tier": "30%+", "rev_tier": "Mega Cap"}, {"co": "K", "rev": 15310000000.0, "inc": 960000000.0, "margin": 6.3, "growth": 12.1, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "KEY", "rev": 5410000000.0, "inc": 1790000000.0, "margin": 33.2, "growth": 53.7, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "KEYS", "rev": 5550000000.0, "inc": 1160000000.0, "margin": 19.9, "growth": 11.5, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "KHC", "rev": 26480000000.0, "inc": 2360000000.0, "margin": 8.9, "growth": 10.0, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "KIM", "rev": 1730000000.0, "inc": 98600000.0, "margin": 5.7, "growth": 3.6, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "KLAC", "rev": 10480000000.0, "inc": 3540000000.0, "margin": 33.8, "growth": 26.8, "margin_tier": "30%+", "rev_tier": "Mid Cap"}, {"co": "KMB", "rev": 20180000000.0, "inc": 1930000000.0, "margin": 9.6, "growth": 0.0, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "KMI", "rev": 19200000000.0, "inc": 2530000000.0, "margin": 13.2, "growth": 3.5, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "KMX", "rev": 31650000000.0, "inc": 575600000.0, "margin": 1.8, "growth": -23.7, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "KO", "rev": 43000000000.0, "inc": 9540000000.0, "margin": 22.2, "growth": 7.0, "margin_tier": "20-30%", "rev_tier": "Mega Cap"}, {"co": "KR", "rev": 148260000000.0, "inc": 2230000000.0, "margin": 1.6, "growth": 7.3, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "L", "rev": 14100000000.0, "inc": 1010000000.0, "margin": 7.2, "growth": -0.4, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "LDOS", "rev": 14400000000.0, "inc": 685000000.0, "margin": 4.8, "growth": 5.9, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "LEN", "rev": 33670000000.0, "inc": 4560000000.0, "margin": 13.5, "growth": 20.6, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "LH", "rev": 14880000000.0, "inc": 1280000000.0, "margin": 8.6, "growth": -9.4, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "LHX", "rev": 17059999999.999998, "inc": 1060000000.0, "margin": 6.2, "growth": 5.2, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "LIN", "rev": 33360000000.0, "inc": 4150000000.0000005, "margin": 12.4, "growth": -4.8, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "LKQ", "rev": 12790000000.0, "inc": 1140000000.0, "margin": 9.0, "growth": -5.8, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "LLY", "rev": 28540000000.0, "inc": 6240000000.0, "margin": 21.9, "growth": -8.7, "margin_tier": "20-30%", "rev_tier": "Mega Cap"}, {"co": "LMT", "rev": 65980000000.00001, "inc": 5730000000.0, "margin": 8.7, "growth": 7.1, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "LNC", "rev": 18780000000.0, "inc": -2226000000.0, "margin": -11.9, "growth": -8.9, "margin_tier": "<0%", "rev_tier": "Large Cap"}, {"co": "LNT", "rev": 4200000000.0, "inc": 685000000.0, "margin": 16.3, "growth": 14.1, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "LOW", "rev": 95950000000.0, "inc": 6660000000.0, "margin": 8.8, "growth": 2.4, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "LRCX", "rev": 19050000000.0, "inc": 5130000000.0, "margin": 26.9, "growth": 24.9, "margin_tier": "20-30%", "rev_tier": "Large Cap"}, {"co": "LUMN", "rev": 17480000000.0, "inc": -1548000000.0, "margin": -8.9, "growth": -21.6, "margin_tier": "<0%", "rev_tier": "Large Cap"}, {"co": "LUV", "rev": 23810000000.0, "inc": 539000000.0, "margin": 2.3, "growth": 22.2, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "LVS", "rev": 4110000000.0000005, "inc": -1066000000.0, "margin": 44.6, "growth": 10.8, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "LW", "rev": 4510000000.0, "inc": 473600000.0, "margin": 10.5, "growth": 26.8, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "LYB", "rev": 50450000000.0, "inc": 3890000000.0, "margin": 7.7, "growth": -20.5, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "LYV", "rev": 16680000000.0, "inc": 149200000.0, "margin": 0.9, "growth": 58.7, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "MA", "rev": 22240000000.0, "inc": 9930000000.0, "margin": 44.7, "growth": 11.5, "margin_tier": "30%+", "rev_tier": "Large Cap"}, {"co": "MAA", "rev": 2020000000.0, "inc": 633300000.0, "margin": 31.4, "growth": 13.9, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "MAR", "rev": 20770000000.0, "inc": 2360000000.0, "margin": 11.4, "growth": 33.2, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "MAS", "rev": 8680000000.0, "inc": 844000000.0, "margin": 9.7, "growth": -4.9, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "MCD", "rev": 23180000000.0, "inc": 6180000000.0, "margin": 26.6, "growth": -1.4, "margin_tier": "20-30%", "rev_tier": "Large Cap"}, {"co": "MCHP", "rev": 8050000000.000001, "inc": 2069999999.9999998, "margin": 25.7, "growth": 23.4, "margin_tier": "20-30%", "rev_tier": "Mid Cap"}, {"co": "MCK", "rev": 273899999999.99997, "inc": 3150000000.0, "margin": 1.1, "growth": 2.7, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "MCO", "rev": 5470000000.0, "inc": 1420000000.0, "margin": 25.1, "growth": -16.2, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "MDLZ", "rev": 31500000000.0, "inc": 2720000000.0, "margin": 8.6, "growth": 13.5, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "MDT", "rev": 30770000000.0, "inc": 4059999999.9999995, "margin": 13.2, "growth": -0.5, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "MET", "rev": 69900000000.0, "inc": 2350000000.0, "margin": 3.4, "growth": -18.8, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "META", "rev": 116610000000.0, "inc": 23200000000.0, "margin": 19.9, "growth": -4.5, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "MGM", "rev": 13130000000.0, "inc": 1440000000.0, "margin": 11.0, "growth": 17.5, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "MHK", "rev": 11740000000.0, "inc": 25200000.0, "margin": 0.2, "growth": -4.0, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "MKC", "rev": 6350000000.0, "inc": 682000000.0, "margin": 10.7, "growth": -2.0, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "MKTX", "rev": 718300000.0, "inc": 250200000.0, "margin": 34.8, "growth": 7.8, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "MLM", "rev": 6160000000.0, "inc": 856300000.0, "margin": 14.1, "growth": -1.3, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "MMC", "rev": 20720000000.0, "inc": 3050000000.0, "margin": 14.7, "growth": -2.2, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "MMM", "rev": 34229999999.999996, "inc": 5780000000.0, "margin": 16.9, "growth": -6.2, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "MNST", "rev": 6310000000.0, "inc": 1190000000.0, "margin": 19.4, "growth": 15.1, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "MO", "rev": 25100000000.0, "inc": 5750000000.0, "margin": 22.9, "growth": -2.3, "margin_tier": "20-30%", "rev_tier": "Large Cap"}, {"co": "MOH", "rev": 31970000000.0, "inc": 792000000.0, "margin": 2.5, "growth": 11.0, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "MOS", "rev": 19130000000.0, "inc": 3580000000.0, "margin": 18.7, "growth": 16.7, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "MPC", "rev": 178890000000.0, "inc": 14440000000.0, "margin": 8.1, "growth": 12.7, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "MPWR", "rev": 1790000000.0, "inc": 437700000.0, "margin": 24.4, "growth": 36.7, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "MRK", "rev": 59280000000.0, "inc": 14520000000.0, "margin": 24.5, "growth": 2.3, "margin_tier": "20-30%", "rev_tier": "Mega Cap"}, {"co": "MRNA", "rev": 19260000000.0, "inc": 8359999999.999999, "margin": 43.4, "growth": -29.5, "margin_tier": "30%+", "rev_tier": "Large Cap"}, {"co": "MRO", "rev": 8070000000.0, "inc": 3610000000.0, "margin": 44.7, "growth": -3.0, "margin_tier": "30%+", "rev_tier": "Mid Cap"}, {"co": "MS", "rev": 65940000000.0, "inc": 10540000000.0, "margin": 16.0, "growth": 32.4, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "MSCI", "rev": 2250000000.0, "inc": 870600000.0, "margin": 38.7, "growth": 4.8, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "MSFT", "rev": 204090000000.0, "inc": 67450000000.0, "margin": 33.0, "growth": 2.0, "margin_tier": "30%+", "rev_tier": "Mega Cap"}, {"co": "MSI", "rev": 9110000000.0, "inc": 1360000000.0, "margin": 15.0, "growth": 16.7, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "MTB", "rev": 6250000000.0, "inc": 1890000000.0, "margin": 30.3, "growth": 116.2, "margin_tier": "30%+", "rev_tier": "Mid Cap"}, {"co": "MTCH", "rev": 3190000000.0, "inc": 364200000.0, "margin": 11.4, "growth": -2.5, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "MTD", "rev": 3920000000.0, "inc": 872500000.0, "margin": 22.3, "growth": 2.0, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "MU", "rev": 27160000000.0, "inc": 6190000000.0, "margin": 22.8, "growth": -46.9, "margin_tier": "20-30%", "rev_tier": "Large Cap"}, {"co": "NCLH", "rev": 4840000000.0, "inc": -2269900000.0, "margin": -46.9, "growth": 211.7, "margin_tier": "<0%", "rev_tier": "Small Cap"}, {"co": "NDAQ", "rev": 6230000000.0, "inc": 1130000000.0, "margin": 18.1, "growth": 7.8, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "NDSN", "rev": 2590000000.0, "inc": 497000000.0, "margin": 19.2, "growth": 0.2, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "NEE", "rev": 20960000000.0, "inc": 4150000000.0000005, "margin": 19.8, "growth": 22.2, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "NEM", "rev": 11910000000.0, "inc": -459000000.0, "margin": -3.6, "growth": -5.6, "margin_tier": "<0%", "rev_tier": "Mid Cap"}, {"co": "NFLX", "rev": 31620000000.0, "inc": 4120000000.0, "margin": 14.2, "growth": 1.9, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "NI", "rev": 5850000000.0, "inc": 749000000.0, "margin": 12.8, "growth": 21.0, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "NKE", "rev": 49110000000.0, "inc": 5630000000.0, "margin": 11.5, "growth": 17.2, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "NOC", "rev": 36600000000.0, "inc": 4900000000.0, "margin": 13.4, "growth": 16.1, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "NOW", "rev": 7250000000.0, "inc": 325000000.0, "margin": 4.5, "growth": 20.2, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "NRG", "rev": 31540000000.0, "inc": 1220000000.0, "margin": 3.9, "growth": 11.5, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "NSC", "rev": 12740000000.0, "inc": 3270000000.0, "margin": 25.6, "growth": 13.5, "margin_tier": "20-30%", "rev_tier": "Large Cap"}, {"co": "NTAP", "rev": 6460000000.0, "inc": 1290000000.0, "margin": 19.9, "growth": -5.5, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "NTRS", "rev": 7490000000.0, "inc": 1280000000.0, "margin": 17.1, "growth": 22.2, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "NUE", "rev": 41510000000.0, "inc": 7580000000.0, "margin": 18.3, "growth": -15.8, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "NVDA", "rev": 26970000000.0, "inc": 4370000000.0, "margin": 16.2, "growth": -20.8, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "NVR", "rev": 10580000000.0, "inc": 1730000000.0, "margin": 16.3, "growth": 22.5, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "NWL", "rev": 9460000000.0, "inc": 197000000.0, "margin": 2.1, "growth": -10.7, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "NWSA", "rev": 10160000000.0, "inc": 299000000.0, "margin": 2.9, "growth": -7.2, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "NXPI", "rev": 13210000000.0, "inc": 2790000000.0, "margin": 21.1, "growth": 9.0, "margin_tier": "20-30%", "rev_tier": "Large Cap"}, {"co": "O", "rev": 3340000000.0, "inc": 869400000.0, "margin": 26.0, "growth": 30.4, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "ODFL", "rev": 6260000000.0, "inc": 1380000000.0, "margin": 22.0, "growth": 5.8, "margin_tier": "20-30%", "rev_tier": "Mid Cap"}, {"co": "OGN", "rev": 6170000000.0, "inc": 917000000.0, "margin": 17.9, "growth": -3.9, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "OKE", "rev": 22390000000.0, "inc": 1720000000.0, "margin": 7.7, "growth": -7.2, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "OMC", "rev": 14290000000.0, "inc": 1320000000.0, "margin": 9.2, "growth": 0.3, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "ORCL", "rev": 46070000000.0, "inc": 8800000000.0, "margin": 19.1, "growth": 18.5, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "ORLY", "rev": 14410000000.0, "inc": 2170000000.0, "margin": 15.1, "growth": 10.7, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "OTIS", "rev": 13690000000.0, "inc": 1250000000.0, "margin": 9.2, "growth": -3.6, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "OXY", "rev": 36790000000.0, "inc": 12500000000.0, "margin": 34.0, "growth": 3.9, "margin_tier": "30%+", "rev_tier": "Mega Cap"}, {"co": "PARA", "rev": 30150000000.0, "inc": 668000000.0, "margin": 3.5, "growth": 1.6, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "PAYC", "rev": 1380000000.0, "inc": 281400000.0, "margin": 20.5, "growth": 30.0, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "PAYX", "rev": 4820000000.0, "inc": 1470000000.0, "margin": 30.4, "growth": 7.4, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "PCAR", "rev": 28820000000.0, "inc": 3010000000.0, "margin": 10.4, "growth": 21.6, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "PEAK", "rev": 2060000000.0, "inc": 494900000.0, "margin": 24.2, "growth": 8.5, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "PEG", "rev": 9800000000.0, "inc": 1030000000.0, "margin": 10.5, "growth": 2.7, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "PENN", "rev": 6400000000.0, "inc": 221200000.0, "margin": 3.5, "growth": 0.8, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "PEP", "rev": 86390000000.0, "inc": 9000000000.0, "margin": 10.3, "growth": 10.9, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "PFE", "rev": 100330000000.0, "inc": 31370000000.0, "margin": 31.3, "growth": 2.8, "margin_tier": "30%+", "rev_tier": "Mega Cap"}, {"co": "PFG", "rev": 13840000000.0, "inc": 4810000000.0, "margin": 34.8, "growth": -7.7, "margin_tier": "30%+", "rev_tier": "Large Cap"}, {"co": "PG", "rev": 80280000000.0, "inc": 14000000000.0, "margin": 17.4, "growth": -0.9, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "PGR", "rev": 49590000000.0, "inc": 694600000.0, "margin": 1.4, "growth": 7.8, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "PH", "rev": 17180000000.0, "inc": 1260000000.0, "margin": 7.3, "growth": 22.2, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "PHM", "rev": 16230000000.0, "inc": 2600000000.0, "margin": 16.0, "growth": 18.6, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "PKG", "rev": 8480000000.0, "inc": 1020000000.0, "margin": 12.1, "growth": -3.2, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "PKI", "rev": 3310000000.0, "inc": 512700000.00000006, "margin": 17.2, "growth": -27.9, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "PLD", "rev": 5970000000.0, "inc": 3360000000.0, "margin": 56.2, "growth": 37.1, "margin_tier": "30%+", "rev_tier": "Mid Cap"}, {"co": "PM", "rev": 31760000000.0, "inc": 9020000000.0, "margin": 28.4, "growth": 0.6, "margin_tier": "20-30%", "rev_tier": "Mega Cap"}, {"co": "PNC", "rev": 15440000000.0, "inc": 5710000000.0, "margin": 37.0, "growth": 71.7, "margin_tier": "30%+", "rev_tier": "Large Cap"}, {"co": "PNR", "rev": 4120000000.0, "inc": 483200000.0, "margin": 11.7, "growth": 1.4, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "PNW", "rev": 4320000000.0, "inc": 483600000.0, "margin": 11.2, "growth": 26.3, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "POOL", "rev": 6180000000.0, "inc": 744300000.0, "margin": 12.0, "growth": 5.8, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "PPG", "rev": 17650000000.0, "inc": 1030000000.0, "margin": 5.8, "growth": -0.1, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "PPL", "rev": 7900000000.0, "inc": 714000000.0, "margin": 9.6, "growth": 54.2, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "PRU", "rev": 60050000000.0, "inc": -1463000000.0, "margin": -2.4, "growth": -18.8, "margin_tier": "<0%", "rev_tier": "Mega Cap"}, {"co": "PSA", "rev": 4179999999.9999995, "inc": 4139999999.9999995, "margin": 99.0, "growth": 17.8, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "PSX", "rev": 169990000000.0, "inc": 11010000000.0, "margin": 6.5, "growth": 23.5, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "PTC", "rev": 1940000000.0, "inc": 342000000.0, "margin": 17.6, "growth": 1.8, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "PVH", "rev": 8970000000.0, "inc": 452500000.0, "margin": 5.0, "growth": -2.2, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "PWR", "rev": 17070000000.0, "inc": 491200000.0, "margin": 2.9, "growth": 12.6, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "PXD", "rev": 24380000000.0, "inc": 7830000000.0, "margin": 32.1, "growth": -7.2, "margin_tier": "30%+", "rev_tier": "Large Cap"}, {"co": "PYPL", "rev": 27520000000.0, "inc": 2420000000.0, "margin": 8.8, "growth": 6.7, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "QCOM", "rev": 42960000000.0, "inc": 11860000000.0, "margin": 27.4, "growth": -11.6, "margin_tier": "20-30%", "rev_tier": "Mega Cap"}, {"co": "QRVO", "rev": 4099999999.9999995, "inc": 453800000.0, "margin": 11.1, "growth": -33.3, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "RCL", "rev": 8840000000.0, "inc": -2156000000.0, "margin": -24.4, "growth": 165.1, "margin_tier": "<0%", "rev_tier": "Mid Cap"}, {"co": "RE", "rev": 12520000000.0, "inc": 584800000.0, "margin": 4.7, "growth": 4.2, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "REG", "rev": 1220000000.0, "inc": 482900000.0, "margin": 39.4, "growth": 5.9, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "REGN", "rev": 12170000000.0, "inc": 4340000000.0, "margin": 35.6, "growth": -31.0, "margin_tier": "30%+", "rev_tier": "Mid Cap"}, {"co": "RF", "rev": 5100000000.0, "inc": 2150000000.0, "margin": 42.1, "growth": 47.0, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "RHI", "rev": 7240000000.0, "inc": 657900000.0, "margin": 9.1, "growth": -2.4, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "RJF", "rev": 11520000000.0, "inc": 1570000000.0, "margin": 13.6, "growth": 7.4, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "RL", "rev": 6430000000.0, "inc": 514799999.99999994, "margin": 8.0, "growth": 0.9, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "RMD", "rev": 3760000000.0, "inc": 809500000.0, "margin": 21.5, "growth": 15.5, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "ROK", "rev": 7880000000.0, "inc": 1070000000.0000001, "margin": 13.6, "growth": 6.7, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "ROL", "rev": 2700000000.0, "inc": 368600000.0, "margin": 13.7, "growth": 10.2, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "ROP", "rev": 5370000000.0, "inc": 985600000.0, "margin": 84.6, "growth": 13.9, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "ROST", "rev": 18700000000.0, "inc": 1510000000.0, "margin": 7.9, "growth": -0.2, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "RSG", "rev": 13510000000.0, "inc": 1490000000.0, "margin": 11.0, "growth": 19.5, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "RTX", "rev": 67069999999.99999, "inc": 5220000000.0, "margin": 7.7, "growth": 6.2, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "SBAC", "rev": 2630000000.0, "inc": 461400000.0, "margin": 17.5, "growth": 15.3, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "SBNY", "rev": 2580000000.0, "inc": 1150000000.0, "margin": 44.8, "growth": 75.7, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "SBUX", "rev": 32909999999.999996, "inc": 3320000000.0, "margin": 10.1, "growth": 8.2, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "SCHW", "rev": 22310000000.0, "inc": 6630000000.0, "margin": 29.7, "growth": 30.5, "margin_tier": "20-30%", "rev_tier": "Large Cap"}, {"co": "SEDG", "rev": 3110000000.0, "inc": 93800000.0, "margin": 3.0, "growth": 61.4, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "SEE", "rev": 5640000000.0, "inc": 491300000.0, "margin": 8.7, "growth": -8.2, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "SHW", "rev": 22150000000.0, "inc": 2020000000.0, "margin": 9.1, "growth": 9.8, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "SIVB", "rev": 5670000000.0, "inc": 1510000000.0, "margin": 26.6, "growth": 80.1, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "SJM", "rev": 8330000000.0, "inc": 710200000.0, "margin": 8.5, "growth": 7.7, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "SLB", "rev": 28090000000.0, "inc": 3440000000.0, "margin": 12.2, "growth": 26.6, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "SNA", "rev": 4840000000.0, "inc": 911700000.0, "margin": 18.8, "growth": 4.1, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "SNPS", "rev": 5170000000.0, "inc": 942400000.0, "margin": 18.2, "growth": 7.2, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "SO", "rev": 29280000000.0, "inc": 3520000000.0, "margin": 12.0, "growth": 22.2, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "SPG", "rev": 5290000000.0, "inc": 2140000000.0000002, "margin": 40.4, "growth": 5.6, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "SPGI", "rev": 11180000000.0, "inc": 3250000000.0, "margin": 29.1, "growth": 40.7, "margin_tier": "20-30%", "rev_tier": "Mid Cap"}, {"co": "SRE", "rev": 14440000000.0, "inc": 2089999999.9999998, "margin": 14.5, "growth": -10.1, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "STE", "rev": 4780000000.0, "inc": -27900000.0, "margin": -0.6, "growth": 0.6, "margin_tier": "<0%", "rev_tier": "Small Cap"}, {"co": "STT", "rev": 4090000000.0, "inc": 2660000000.0, "margin": 65.1, "growth": 225.7, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "STX", "rev": 9350000000.0, "inc": 618000000.0, "margin": 6.6, "growth": -39.4, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "STZ", "rev": 9560000000.0, "inc": 101400000.0, "margin": 1.1, "growth": 5.0, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "SWK", "rev": 16950000000.0, "inc": 165500000.0, "margin": 6.2, "growth": 0.1, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "SWKS", "rev": 5300000000.0, "inc": 1180000000.0, "margin": 22.3, "growth": -12.0, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "SYF", "rev": 17149999999.999998, "inc": 2970000000.0, "margin": 17.3, "growth": 16.2, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "SYK", "rev": 18450000000.0, "inc": 2360000000.0, "margin": 12.8, "growth": 10.7, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "SYY", "rev": 73580000000.0, "inc": 1420000000.0, "margin": 1.9, "growth": 13.9, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "T", "rev": 120740000000.0, "inc": -8546000000.0, "margin": -7.2, "growth": 0.8, "margin_tier": "<0%", "rev_tier": "Mega Cap"}, {"co": "TAP", "rev": 10700000000.0, "inc": -175300000.0, "margin": -1.6, "growth": 0.4, "margin_tier": "<0%", "rev_tier": "Mid Cap"}, {"co": "TDG", "rev": 5630000000.0, "inc": 853000000.0, "margin": 15.1, "growth": 17.0, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "TDY", "rev": 5460000000.0, "inc": 788600000.0, "margin": 14.4, "growth": 3.1, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "TECH", "rev": 1120000000.0, "inc": 261700000.0, "margin": 23.4, "growth": 0.9, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "TEL", "rev": 16300000000.0, "inc": 2260000000.0, "margin": 13.9, "growth": 0.6, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "TER", "rev": 3150000000.0, "inc": 715500000.0, "margin": 22.7, "growth": -17.3, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "TFC", "rev": 16640000000.0, "inc": 5930000000.0, "margin": 35.6, "growth": 53.6, "margin_tier": "30%+", "rev_tier": "Large Cap"}, {"co": "TFX", "rev": 2790000000.0, "inc": 362900000.0, "margin": 13.0, "growth": -0.5, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "TGT", "rev": 109120000000.0, "inc": 2780000000.0, "margin": 3.9, "growth": 3.4, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "TJX", "rev": 49940000000.0, "inc": 3500000000.0, "margin": 6.7, "growth": -2.9, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "TMO", "rev": 44910000000.0, "inc": 6950000000.0, "margin": 15.5, "growth": 7.0, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "TMUS", "rev": 79570000000.0, "inc": 2590000000.0, "margin": 3.3, "growth": -2.5, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "TPR", "rev": 6590000000.0, "inc": 836700000.0, "margin": 12.7, "growth": -5.4, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "TRMB", "rev": 3680000000.0, "inc": 449700000.0, "margin": 12.2, "growth": -7.5, "margin_tier": "10-20%", "rev_tier": "Small Cap"}, {"co": "TROW", "rev": 6490000000.0, "inc": 1520000000.0, "margin": 23.5, "growth": -22.3, "margin_tier": "20-30%", "rev_tier": "Mid Cap"}, {"co": "TRV", "rev": 36920000000.0, "inc": 2820000000.0, "margin": 7.6, "growth": 7.0, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "TSCO", "rev": 14200000000.0, "inc": 1090000000.0, "margin": 7.7, "growth": 20.7, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "TSLA", "rev": 81460000000.0, "inc": 12580000000.0, "margin": 15.4, "growth": 37.2, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "TSN", "rev": 53610000000.0, "inc": 2430000000.0, "margin": 4.5, "growth": 2.5, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "TT", "rev": 15990000000.0, "inc": 1780000000.0, "margin": 11.0, "growth": 14.1, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "TTWO", "rev": 4830000000.0, "inc": -403400000.0, "margin": -8.3, "growth": 55.9, "margin_tier": "<0%", "rev_tier": "Small Cap"}, {"co": "TXN", "rev": 20030000000.0, "inc": 8710000000.0, "margin": 43.5, "growth": -3.4, "margin_tier": "30%+", "rev_tier": "Large Cap"}, {"co": "TXT", "rev": 12870000000.0, "inc": 862000000.0, "margin": 6.7, "growth": 9.5, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "TYL", "rev": 1850000000.0, "inc": 164200000.0, "margin": 8.9, "growth": 4.3, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "UAA", "rev": 5810000000.0, "inc": 156600000.0, "margin": 2.7, "growth": 3.4, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "UAL", "rev": 44950000000.0, "inc": 737000000.0, "margin": 1.6, "growth": 51.4, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "UDR", "rev": 1520000000.0, "inc": 82500000.0, "margin": 5.4, "growth": 14.8, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "UHS", "rev": 13400000000.0, "inc": 674900000.0, "margin": 5.0, "growth": 5.2, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "ULTA", "rev": 9710000000.0, "inc": 1190000000.0, "margin": 12.3, "growth": 17.2, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "UNH", "rev": 324160000000.0, "inc": 20120000000.0, "margin": 6.2, "growth": 12.3, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "UNP", "rev": 24880000000.0, "inc": 7000000000.0, "margin": 28.1, "growth": 7.8, "margin_tier": "20-30%", "rev_tier": "Large Cap"}, {"co": "UPS", "rev": 100340000000.0, "inc": 11550000000.0, "margin": 11.5, "growth": -2.7, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "URI", "rev": 11640000000.0, "inc": 2100000000.0, "margin": 18.1, "growth": 18.7, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "USB", "rev": 17950000000.0, "inc": 5500000000.0, "margin": 30.7, "growth": 78.1, "margin_tier": "30%+", "rev_tier": "Large Cap"}, {"co": "V", "rev": 30190000000.0, "inc": 14860000000.0, "margin": 49.2, "growth": 12.4, "margin_tier": "30%+", "rev_tier": "Mega Cap"}, {"co": "VFC", "rev": 11700000000.0, "inc": 413900000.0, "margin": 3.5, "growth": -2.6, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "VICI", "rev": 2600000000.0, "inc": 1120000000.0, "margin": 43.0, "growth": 100.9, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "VLO", "rev": 176380000000.0, "inc": 11480000000.0, "margin": 6.5, "growth": 16.3, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "VMC", "rev": 7320000000.0, "inc": 594200000.0, "margin": 7.9, "growth": 7.8, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "VNO", "rev": 1800000000.0, "inc": -408600000.0, "margin": -22.7, "growth": 327.5, "margin_tier": "<0%", "rev_tier": "Small Cap"}, {"co": "VRSK", "rev": 2500000000.0, "inc": 1040000000.0, "margin": 38.2, "growth": 0.0, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "VRSN", "rev": 1420000000.0, "inc": 673800000.0, "margin": 47.3, "growth": 8.5, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "VRTX", "rev": 8930000000.0, "inc": 3320000000.0, "margin": 37.2, "growth": 11.1, "margin_tier": "30%+", "rev_tier": "Mid Cap"}, {"co": "VTR", "rev": 4130000000.0, "inc": -47400000.0, "margin": -1.1, "growth": 2.8, "margin_tier": "<0%", "rev_tier": "Small Cap"}, {"co": "VTRS", "rev": 16260000000.000002, "inc": 2080000000.0, "margin": 12.8, "growth": -10.7, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "VZ", "rev": 136840000000.0, "inc": 21260000000.0, "margin": 15.5, "growth": 3.5, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "WAB", "rev": 8359999999.999999, "inc": 633000000.0, "margin": 7.6, "growth": 11.3, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "WAT", "rev": 2970000000.0, "inc": 707800000.0, "margin": 23.8, "growth": 2.6, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "WBA", "rev": 132180000000.0, "inc": -2964000000.0, "margin": -2.2, "growth": -1.5, "margin_tier": "<0%", "rev_tier": "Mega Cap"}, {"co": "WBD", "rev": 33820000000.0, "inc": -7420000000.0, "margin": -21.9, "growth": 245.4, "margin_tier": "<0%", "rev_tier": "Mega Cap"}, {"co": "WDC", "rev": 15750000000.0, "inc": -93000000.0, "margin": -0.6, "growth": -35.7, "margin_tier": "<0%", "rev_tier": "Large Cap"}, {"co": "WEC", "rev": 9600000000.0, "inc": 1410000000.0, "margin": 14.7, "growth": 16.2, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "WELL", "rev": 5860000000.0, "inc": 125200000.0, "margin": 6.7, "growth": 18.9, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "WFC", "rev": 54020000000.0, "inc": 12070000000.0, "margin": 22.3, "growth": 75.8, "margin_tier": "20-30%", "rev_tier": "Mega Cap"}, {"co": "WHR", "rev": 19720000000.0, "inc": -1519000000.0, "margin": -7.7, "growth": -15.3, "margin_tier": "<0%", "rev_tier": "Large Cap"}, {"co": "WM", "rev": 19700000000.0, "inc": 2240000000.0, "margin": 11.4, "growth": 5.5, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "WMB", "rev": 10960000000.0, "inc": 2049999999.9999998, "margin": 18.7, "growth": -10.0, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "WMT", "rev": 611290000000.0, "inc": 11680000000.0, "margin": 2.3, "growth": 8.7, "margin_tier": "0-10%", "rev_tier": "Mega Cap"}, {"co": "WRB", "rev": 11170000000.0, "inc": 1380000000.0, "margin": 12.4, "growth": 16.9, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "WRK", "rev": 21230000000.0, "inc": 807600000.0, "margin": 3.8, "growth": -0.6, "margin_tier": "0-10%", "rev_tier": "Large Cap"}, {"co": "WST", "rev": 2890000000.0, "inc": 580200000.0, "margin": 20.3, "growth": -3.0, "margin_tier": "20-30%", "rev_tier": "Small Cap"}, {"co": "WTW", "rev": 8870000000.0, "inc": 1050000000.0, "margin": 11.3, "growth": 0.6, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "WY", "rev": 10180000000.0, "inc": 1880000000.0, "margin": 18.5, "growth": -17.4, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "WYNN", "rev": 3760000000.0, "inc": -423900000.0, "margin": -11.3, "growth": -3.6, "margin_tier": "<0%", "rev_tier": "Small Cap"}, {"co": "XEL", "rev": 15310000000.0, "inc": 1740000000.0, "margin": 11.3, "growth": 20.8, "margin_tier": "10-20%", "rev_tier": "Large Cap"}, {"co": "XOM", "rev": 398680000000.0, "inc": 55710000000.0, "margin": 14.0, "growth": 14.6, "margin_tier": "10-20%", "rev_tier": "Mega Cap"}, {"co": "XRAY", "rev": 3920000000.0, "inc": -950000000.0, "margin": -24.2, "growth": -8.0, "margin_tier": "<0%", "rev_tier": "Small Cap"}, {"co": "XYL", "rev": 5520000000.0, "inc": 355000000.0, "margin": 6.4, "growth": 13.8, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "YUM", "rev": 6840000000.0, "inc": 1320000000.0, "margin": 19.4, "growth": 6.8, "margin_tier": "10-20%", "rev_tier": "Mid Cap"}, {"co": "ZBH", "rev": 6940000000.0, "inc": 290200000.0, "margin": 3.3, "growth": 2.7, "margin_tier": "0-10%", "rev_tier": "Mid Cap"}, {"co": "ZBRA", "rev": 5780000000.0, "inc": 463000000.0, "margin": 8.0, "growth": 2.5, "margin_tier": "0-10%", "rev_tier": "Small Cap"}, {"co": "ZION", "rev": 2710000000.0, "inc": 869000000.0, "margin": 32.2, "growth": 47.5, "margin_tier": "30%+", "rev_tier": "Small Cap"}, {"co": "ZTS", "rev": 8080000000.0, "inc": 2109999999.9999998, "margin": 26.2, "growth": 3.7, "margin_tier": "20-30%", "rev_tier": "Mid Cap"}]};
+const FILTERS = [{"id": "filter-margin-tier", "label": "Net Margin Tier", "field": "margin_tier", "options": ["All", "<0%", "0-10%", "10-20%", "20-30%", "30%+"]}, {"id": "filter-rev-tier", "label": "Revenue Tier", "field": "rev_tier", "options": ["All", "Small Cap", "Mid Cap", "Large Cap", "Mega Cap"]}];
+const KPIS = [{"id": "kpi-revenue", "label": "Combined Revenue", "valueField": "rev", "agg": "sum", "format": "money"}, {"id": "kpi-income", "label": "Combined Net Income", "valueField": "inc", "agg": "sum", "format": "money"}, {"id": "kpi-margin", "label": "Avg Net Margin", "valueField": "margin", "agg": "mean", "format": "pct100"}, {"id": "kpi-growth", "label": "Avg Revenue Growth (YoY)", "valueField": "growth", "agg": "mean", "format": "pct100"}];
+const CHARTS = [{"id": "c1", "title": "Top 10 Companies by Revenue", "mode": "topRows", "labelField": "co", "valueField": "rev", "sort": "value-desc", "topN": 10, "format": "money", "type": "bar", "horizontal": true}, {"id": "c2", "title": "Top 10 Companies by Net Margin", "mode": "topRows", "labelField": "co", "valueField": "margin", "sort": "value-desc", "topN": 10, "format": "pct100", "type": "bar"}, {"id": "c3", "title": "Top 10 Companies by Revenue Growth YoY", "mode": "topRows", "labelField": "co", "valueField": "growth", "sort": "value-desc", "topN": 10, "format": "pct100", "type": "bar"}, {"id": "c4", "title": "Net Margin Distribution", "groupField": "margin_tier", "agg": "count", "sort": "custom", "order": ["<0%", "0-10%", "10-20%", "20-30%", "30%+"], "format": "count", "type": "bar"}];
 const ACCENT = "#96721c";
 const ACCENT_SOFT = "#e6d6ad";
 
-const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-const TEXT_COLOR = isDark ? '#cfcfcf' : '#3a3a3a';
-const GRID_COLOR = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)';
-Chart.defaults.color = TEXT_COLOR;
-Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+Chart.defaults.color = '#3a3a3a';
+Chart.defaults.font.family = "'Segoe UI', -apple-system, sans-serif";
 
 function fmtMoney(v) {
+  if (v === null || v === undefined) return '—';
   const sign = v < 0 ? '-' : '';
   v = Math.abs(v);
   if (v >= 1e12) return sign + '$' + (v/1e12).toFixed(2) + 'T';
@@ -174,20 +225,85 @@ function fmtMoney(v) {
   if (v >= 1e3) return sign + '$' + (v/1e3).toFixed(1) + 'K';
   return sign + '$' + v.toFixed(0);
 }
-function fmtPct(v) { return (v*100).toFixed(1) + '%'; }
-function fmtCount(v) { return Math.round(v).toLocaleString(); }
-function fmtDays(v) { return v.toFixed(1) + ' days'; }
-function fmtRange(v) { return v.toFixed(0) + ' mi'; }
-function fmtPct100(v) { return v.toFixed(1) + '%'; }
-const FORMATTERS = {money: fmtMoney, pct: fmtPct, count: fmtCount, days: fmtDays, range: fmtRange, pct100: fmtPct100};
+function fmtPct(v) { return (v === null || v === undefined) ? '—' : (v*100).toFixed(1) + '%'; }
+function fmtPct100(v) { return (v === null || v === undefined) ? '—' : v.toFixed(1) + '%'; }
+function fmtCount(v) { return (v === null || v === undefined) ? '—' : Math.round(v).toLocaleString(); }
+function fmtDays(v) { return (v === null || v === undefined) ? '—' : v.toFixed(1) + ' days'; }
+function fmtRange(v) { return (v === null || v === undefined) ? '—' : v.toFixed(0) + ' mi'; }
+function fmtYears(v) { return (v === null || v === undefined) ? '—' : v.toFixed(1) + ' yrs'; }
+function fmtText(v) { return (v === null || v === undefined) ? '—' : String(v); }
+const FORMATTERS = {money: fmtMoney, pct: fmtPct, pct100: fmtPct100, count: fmtCount, days: fmtDays, range: fmtRange, years: fmtYears, text: fmtText};
 
-function buildChart(spec) {
-  const rows = DATA[spec.dataKey];
-  const labels = rows.map(r => r[spec.labelField]);
-  const values = rows.map(r => r[spec.valueField]);
+function aggregate(rows, spec) {
+  if (spec.agg === 'count') return rows.length;
+  if (spec.agg === 'ratio') {
+    const [numF, denF] = spec.valueField;
+    let sn = 0, sd = 0;
+    for (const r of rows) { sn += (r[numF]||0); sd += (r[denF]||0); }
+    return sd ? sn/sd : null;
+  }
+  if (spec.agg === 'mean_where') {
+    const sub = rows.filter(r => r[spec.condField] === spec.condValue);
+    if (!sub.length) return null;
+    const vals = sub.map(r => r[spec.valueField]);
+    return vals.reduce((a,b)=>a+b,0) / vals.length;
+  }
+  const vals = rows.map(r => r[spec.valueField]).filter(v => v !== null && v !== undefined);
+  if (!vals.length) return spec.agg === 'sum' ? 0 : null;
+  if (spec.agg === 'sum') return vals.reduce((a,b)=>a+b,0);
+  if (spec.agg === 'mean') return vals.reduce((a,b)=>a+b,0) / vals.length;
+  return null;
+}
+
+function groupAgg(rows, spec) {
+  const groups = {};
+  for (const r of rows) {
+    const k = r[spec.groupField];
+    if (k === null || k === undefined) continue;
+    (groups[k] = groups[k] || []).push(r);
+  }
+  let out = Object.entries(groups).map(([k, grp]) => ({label: k, value: aggregate(grp, spec)}));
+  if (spec.sort === 'value-desc') out.sort((a,b) => (b.value||0) - (a.value||0));
+  else if (spec.sort === 'value-asc') out.sort((a,b) => (a.value||0) - (b.value||0));
+  else if (spec.sort === 'label-asc') out.sort((a,b) => a.label < b.label ? -1 : 1);
+  else if (spec.sort === 'custom' && spec.order) out.sort((a,b) => spec.order.indexOf(a.label) - spec.order.indexOf(b.label));
+  if (spec.topN) out = out.slice(0, spec.topN);
+  return out;
+}
+
+function topRows(rows, spec) {
+  let sorted = rows.filter(r => r[spec.valueField] !== null && r[spec.valueField] !== undefined);
+  sorted = [...sorted].sort((a,b) => spec.sort === 'value-asc' ? a[spec.valueField]-b[spec.valueField] : b[spec.valueField]-a[spec.valueField]);
+  if (spec.topN) sorted = sorted.slice(0, spec.topN);
+  return sorted.map(r => ({label: r[spec.labelField], value: r[spec.valueField]}));
+}
+
+function getFilteredRows() {
+  return DATA.rows.filter(r => FILTERS.every(f => {
+    const sel = document.getElementById(f.id).value;
+    return sel === 'All' || String(r[f.field]) === sel;
+  }));
+}
+
+function getCubeEntry() {
+  const key = FILTERS.map(f => document.getElementById(f.id).value).join('|');
+  return DATA.cube[key];
+}
+
+const chartInstances = {};
+function renderChart(spec, data) {
+  const labels = data.map(d => d.label);
+  const values = data.map(d => d.value);
   const fmt = FORMATTERS[spec.format];
   const horizontal = !!spec.horizontal;
-  new Chart(document.getElementById(spec.id), {
+  if (chartInstances[spec.id]) {
+    const ch = chartInstances[spec.id];
+    ch.data.labels = labels;
+    ch.data.datasets[0].data = values;
+    ch.update();
+    return;
+  }
+  chartInstances[spec.id] = new Chart(document.getElementById(spec.id), {
     type: spec.type,
     data: {
       labels,
@@ -197,39 +313,38 @@ function buildChart(spec) {
         backgroundColor: spec.type === 'line' ? ACCENT_SOFT : ACCENT,
         borderColor: ACCENT,
         borderWidth: spec.type === 'line' ? 2 : 0,
-        borderRadius: spec.type === 'bar' ? 5 : 0,
+        borderRadius: spec.type === 'bar' ? 3 : 0,
         pointRadius: spec.type === 'line' ? 3 : 0,
         pointBackgroundColor: ACCENT,
         fill: spec.type === 'line',
         tension: spec.type === 'line' ? 0.3 : 0,
-        maxBarThickness: 46,
+        maxBarThickness: 40,
       }]
     },
     options: {
       indexAxis: horizontal ? 'y' : 'x',
       responsive: true,
       maintainAspectRatio: false,
+      animation: { duration: 300 },
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: isDark ? '#2a2b2e' : '#ffffff',
-          titleColor: TEXT_COLOR,
-          bodyColor: TEXT_COLOR,
+          backgroundColor: '#ffffff',
+          titleColor: '#252423',
+          bodyColor: '#252423',
           borderColor: ACCENT,
           borderWidth: 1,
           padding: 10,
-          callbacks: {
-            label: (ctx) => fmt(horizontal ? ctx.parsed.x : ctx.parsed.y)
-          }
+          callbacks: { label: (ctx) => fmt(horizontal ? ctx.parsed.x : ctx.parsed.y) }
         }
       },
       scales: {
         x: {
-          grid: { display: horizontal, color: GRID_COLOR },
-          ticks: horizontal ? { callback: (v) => fmt(v) } : {}
+          grid: { display: horizontal, color: 'rgba(0,0,0,0.06)' },
+          ticks: horizontal ? { callback: (v) => fmt(v) } : { autoSkip: true, maxRotation: 45 }
         },
         y: {
-          grid: { display: !horizontal, color: GRID_COLOR },
+          grid: { display: !horizontal, color: 'rgba(0,0,0,0.06)' },
           ticks: horizontal ? {} : { callback: (v) => fmt(v) },
           beginAtZero: true
         }
@@ -238,8 +353,32 @@ function buildChart(spec) {
   });
 }
 
-const CHARTS = [{"id": "c1", "type": "bar", "dataKey": "top_revenue", "labelField": "Company", "valueField": "Revenue_num", "format": "money", "title": "Top 10 Companies by Revenue", "horizontal": true}, {"id": "c2", "type": "bar", "dataKey": "top_margin", "labelField": "Company", "valueField": "NetMargin_num", "format": "pct100", "title": "Top 10 Companies by Net Margin"}, {"id": "c3", "type": "bar", "dataKey": "top_growth", "labelField": "Company", "valueField": "RevGrowth_num", "format": "pct100", "title": "Top 10 Companies by Revenue Growth YoY"}, {"id": "c4", "type": "bar", "dataKey": "margin_distribution", "labelField": "bucket", "valueField": "count", "format": "count", "title": "Net Margin Distribution Across S&P 500"}];
-CHARTS.forEach(buildChart);
+function renderAll() {
+  let rows = null, cubeEntry = null;
+  if (MODE === 'rows') rows = getFilteredRows();
+  else cubeEntry = getCubeEntry();
+
+  KPIS.forEach(k => {
+    let v;
+    if (MODE === 'rows') v = aggregate(rows, k);
+    else v = cubeEntry ? cubeEntry.kpis[k.kpiKey] : null;
+    document.getElementById(k.id).textContent = FORMATTERS[k.format](v);
+  });
+
+  CHARTS.forEach(c => {
+    let data;
+    if (MODE === 'rows') data = c.mode === 'topRows' ? topRows(rows, c) : groupAgg(rows, c);
+    else data = (cubeEntry && cubeEntry.charts[c.chartKey]) || [];
+    renderChart(c, data);
+  });
+}
+
+function resetFilters() {
+  FILTERS.forEach(f => { document.getElementById(f.id).value = 'All'; });
+  renderAll();
+}
+
+renderAll();
 </script>
 </body>
 </html>

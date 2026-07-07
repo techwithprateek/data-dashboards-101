@@ -39,11 +39,11 @@ No BI tool installed? You can build this entire dashboard with Claude, using pla
 
 1. Ask Claude to download the dataset (Kaggle CLI, or the direct link above) and load it with pandas.
 2. Ask Claude to parse the money/percent fields (they come as strings like `"41.05B"` or `"24.6%"`) and compute the KPIs above.
-3. Ask Claude to build a single self-contained `dashboard.html`: KPI cards up top, then 3-4 charts (Chart.js via CDN is enough — no build tools needed).
+3. Ask Claude to build a single self-contained `dashboard.html`: filter dropdowns for Net Margin Tier and Revenue Tier (derived buckets, since this dataset has no sector field) up top, KPI cards below, then 3-4 Chart.js charts that all recompute client-side when a filter changes.
 4. Open the HTML file directly in your browser to view it.
 
 Example prompt:
-> "Download the Financial Performance of Companies from S&P500 dataset from Kaggle, parse the revenue/income/margin fields, and compute combined revenue, combined net income, avg net margin, avg revenue growth, plus top 10 companies by revenue/margin/growth and a net margin distribution. Build a single self-contained HTML dashboard with KPI cards and Chart.js bar charts — one accent color, sorted bars, hover tooltips."
+> "Download the Financial Performance of Companies from S&P500 dataset from Kaggle, parse the revenue/income/margin fields, and derive a Net Margin Tier and a Revenue Tier (quartile-based) bucket per company. Load it as row-level data and build a single self-contained HTML dashboard: filter dropdowns for Net Margin Tier and Revenue Tier, KPI cards for combined revenue/income/avg margin/avg growth, and Chart.js bar charts for top 10 companies by revenue/margin/growth plus a net margin distribution — all recomputing on filter change, PowerBI style, one accent color, sorted bars, hover tooltips, no dark mode."
 
 The [dashboard.html](dashboard.html) in this folder was built exactly this way — open it as a reference, but try building your own before peeking.
 

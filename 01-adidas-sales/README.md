@@ -37,11 +37,11 @@ No BI tool installed? You can build this entire dashboard with Claude, using pla
 
 1. Ask Claude to download the dataset (Kaggle CLI, or the direct link above) and load it with pandas.
 2. Ask Claude to compute the KPIs above — total revenue, units sold, margin by region/category/retailer — and aggregate the results.
-3. Ask Claude to build a single self-contained `dashboard.html`: KPI cards up top, then 3-4 charts (Chart.js via CDN is enough — no build tools needed).
+3. Ask Claude to build a single self-contained `dashboard.html`: filter dropdowns up top (Region / Category / Retailer), KPI cards below that, then 3-4 charts (Chart.js via CDN is enough — no build tools needed) that all recompute live when a filter changes, PowerBI-slicer style.
 4. Open the HTML file directly in your browser to view it.
 
 Example prompt:
-> "Download the Adidas US Sales dataset from Kaggle, compute total revenue, units sold, operating margin, revenue by region, by product category, and by retailer. Build a single self-contained HTML dashboard with KPI cards and Chart.js bar/line charts — one accent color, sorted bars, hover tooltips."
+> "Download the Adidas US Sales dataset from Kaggle, load it as row-level data (not pre-aggregated), and build a single self-contained HTML dashboard: filter dropdowns for Region, Product Category, and Retailer; KPI cards for total revenue, units sold, operating margin, total profit; and Chart.js bar/line charts for revenue by region, by category, monthly trend, and margin by retailer. Every chart and KPI should recompute client-side when a filter changes — PowerBI style, one accent color, sorted bars, hover tooltips, no dark mode."
 
 The [dashboard.html](dashboard.html) in this folder was built exactly this way — open it as a reference, but try building your own before peeking.
 

@@ -35,12 +35,12 @@ Follow the [best practices](../best-practices.md) before you start designing.
 No BI tool installed? You can build this entire dashboard with Claude, using plain HTML — no server, no account, just a file you open in your browser.
 
 1. Ask Claude to pull the dataset — this one is large (1.7M+ rows), so ask Claude to query the Socrata API (`data.wa.gov/resource/rpr4-cgyd.json`) with aggregated SoQL queries (`$group`, `$select count(*)`) instead of downloading the full file.
-2. Ask Claude to compute registrations by manufacturer, by year, by county, and average electric range by manufacturer.
-3. Ask Claude to build a single self-contained `dashboard.html`: KPI cards up top, then 3-4 charts (Chart.js via CDN is enough — no build tools needed).
+2. With 1.7M+ rows, raw-row filtering in the browser isn't an option — ask Claude to precompute a lookup table ("cube") of KPIs + chart data for every Year × Vehicle Type combination using aggregated SoQL queries, instead of shipping raw rows.
+3. Ask Claude to build a single self-contained `dashboard.html`: filter dropdowns for Year and Vehicle Type up top, KPI cards below, then 3-4 Chart.js charts that look up the matching precomputed slice and re-render when a filter changes.
 4. Open the HTML file directly in your browser to view it.
 
 Example prompt:
-> "Query the WA Electric Vehicle Population dataset (Socrata API at data.wa.gov, resource rpr4-cgyd) for registrations grouped by manufacturer, by year, and by county, plus average electric range by manufacturer. Build a single self-contained HTML dashboard with KPI cards and Chart.js bar/line charts — one accent color, sorted bars, hover tooltips."
+> "Query the WA Electric Vehicle Population dataset (Socrata API at data.wa.gov, resource rpr4-cgyd) with aggregated SoQL queries grouped by year, vehicle type, and manufacturer (and separately by county). Precompute a lookup table of KPIs and chart breakdowns for every Year × Vehicle Type filter combination, including 'All'. Build a single self-contained HTML dashboard with filter dropdowns for Year and Vehicle Type, KPI cards, and Chart.js bar/line charts that look up the matching slice on filter change — PowerBI style, one accent color, sorted bars, hover tooltips, no dark mode."
 
 The [dashboard.html](dashboard.html) in this folder was built exactly this way — open it as a reference, but try building your own before peeking.
 

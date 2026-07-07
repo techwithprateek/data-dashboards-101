@@ -35,11 +35,12 @@ No BI tool installed? You can build this entire dashboard with Claude, using pla
 
 1. Ask Claude to download the dataset (Kaggle CLI, or the direct link above) and load it with pandas.
 2. Ask Claude to compute the KPIs above — on-time/late delivery rate, and late rate broken out by region, shipping mode, and market.
-3. Ask Claude to build a single self-contained `dashboard.html`: KPI cards up top, then 3-4 charts (Chart.js via CDN is enough — no build tools needed).
-4. Open the HTML file directly in your browser to view it.
+3. This dataset is too large (180K+ rows) to filter live in the browser, so ask Claude to precompute a small lookup table ("cube") of KPIs + chart data for every Region × Shipping Mode combination, instead of shipping raw rows.
+4. Ask Claude to build a single self-contained `dashboard.html`: filter dropdowns for Order Region and Shipping Mode up top, KPI cards below, then 3-4 Chart.js charts that look up the matching precomputed slice and re-render when a filter changes.
+5. Open the HTML file directly in your browser to view it.
 
 Example prompt:
-> "Download the DataCo Smart Supply Chain dataset from Kaggle, compute on-time vs late delivery rate overall, and late delivery rate by order region, shipping mode, and market. Build a single self-contained HTML dashboard with KPI cards and Chart.js bar charts — one accent color, sorted bars, hover tooltips."
+> "Download the DataCo Smart Supply Chain dataset from Kaggle. Precompute a lookup table of on-time/late delivery KPIs and chart breakdowns (by region, shipping mode, category, market) for every combination of Order Region and Shipping Mode filter, including 'All'. Build a single self-contained HTML dashboard with filter dropdowns for Region and Shipping Mode, KPI cards, and Chart.js bar charts that look up the matching slice on filter change — PowerBI style, one accent color, sorted bars, hover tooltips, no dark mode."
 
 The [dashboard.html](dashboard.html) in this folder was built exactly this way — open it as a reference, but try building your own before peeking.
 
