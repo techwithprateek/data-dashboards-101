@@ -40,6 +40,12 @@ This dataset lives on a government open-data portal, not Kaggle, and has 1.7M+ r
 2. Click **Export** (top right) → **CSV**.
 3. Save it into your project folder. It may take a minute to download — it's a large file, but SQLite handles millions of rows without trouble.
 
+**Choose your path:**
+- **New to SQL** → follow **Path A** below — one query at a time, explained as you go.
+- **Already know SQL** → skip to **Path B** — batch the queries, spend your time on the dashboard instead.
+
+### Path A: New to SQL
+
 **2. Load it into a local SQLite database**
 > "Load the Electric Vehicle Population CSV into a new SQLite database called `ev.db`, in a table called `registrations`. This file has 1.7M+ rows so it may take a minute — that's expected."
 
@@ -68,7 +74,13 @@ Ask **"explain this query"** any time a result surprises you.
 - **Power BI**: Get Data → Text/CSV → import each file from `results/`, then drag fields into visuals. No DAX needed.
 - **Claude + HTML**: > "Using the CSV files in `results/`, build a single self-contained `dashboard.html`: filter dropdowns for Model Year and Vehicle Type; KPI cards for total registrations, top manufacturer, top manufacturer share, and YoY growth; and charts for the registration trend by year, registrations by manufacturer, vehicle type mix, registrations by county, and avg electric range by manufacturer — recomputing when a filter changes, PowerBI style, one accent color, sorted bars, hover tooltips, no dark mode."
 
-The [dashboard.html](dashboard.html) in this folder was built exactly this way — open it as a reference, but try building your own first.
+### Path B: Already Know SQL
+
+**2. Load and analyze in one pass**
+> "Load the Electric Vehicle Population CSV into a SQLite database called `ev.db`, table `registrations` (1.7M+ rows, may take a minute). Then write, run, and save each of these as its own CSV in a `results/` folder: (1) registration count by Make top 12, (2) registration count by Model Year 2018-2024, (3) registration count by County top 10, (4) registration count by Electric Vehicle Type, (5) avg Electric Range by Make for makes with 200+ registrations top 10, (6) registration count by New or Used Vehicle."
+
+**3. Build the dashboard — this is the real exercise**
+This project's reference dashboard leads with a full-width hero trend chart carrying a **stat badge** in its header ("▲31.1% YoY") — computed from year-over-year growth in query (2). Read [best-practices.md](../best-practices.md), then ask Claude to build that structure from your `results/` CSVs in your own words — don't reuse the Path A prompt. Compare against [dashboard.html](dashboard.html) once you're happy with yours.
 
 ## Share Your Version
 

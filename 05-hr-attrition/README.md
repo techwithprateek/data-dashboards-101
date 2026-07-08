@@ -37,6 +37,12 @@ Do the [one-time setup](../README.md#setup-one-time) first (installs Claude Code
 **1. Get the data**
 Go to the [dataset link](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset) above, click **Download**, and unzip the file into your project folder. You should end up with `WA_Fn-UseC_-HR-Employee-Attrition.csv`.
 
+**Choose your path:**
+- **New to SQL** → follow **Path A** below — one query at a time, explained as you go.
+- **Already know SQL** → skip to **Path B** — batch the queries, spend your time on the dashboard instead.
+
+### Path A: New to SQL
+
 **2. Load it into a local SQLite database**
 > "Load `WA_Fn-UseC_-HR-Employee-Attrition.csv` into a new SQLite database called `hr.db`, in a table called `employees`."
 
@@ -67,7 +73,13 @@ Ask **"explain this query"** any time a result surprises you — the last one us
 - **Power BI**: Get Data → Text/CSV → import each file from `results/`, then drag fields into visuals. No DAX needed.
 - **Claude + HTML**: > "Using the CSV files in `results/`, build a single self-contained `dashboard.html`: filter dropdowns for Department, Job Role, and Overtime; KPI cards for total employees, attrition rate, and avg tenure of leavers vs stayers; a heatmap of attrition rate by Department × Job Satisfaction; and charts for attrition by job role and by overtime status — recomputing when a filter changes, PowerBI style, one accent color, hover tooltips, no dark mode."
 
-The [dashboard.html](dashboard.html) in this folder was built exactly this way — open it as a reference, but try building your own first.
+### Path B: Already Know SQL
+
+**2. Load and analyze in one pass**
+> "Load `WA_Fn-UseC_-HR-Employee-Attrition.csv` into a SQLite database called `hr.db`, table `employees`. Then write, run, and save each of these as its own CSV in a `results/` folder: (1) total employees and overall attrition rate, (2) avg YearsAtCompany for leavers vs stayers, (3) headcount by Department, (4) attrition rate by Overtime status, (5) attrition rate by JobRole, (6) attrition rate grouped by BOTH Department and JobSatisfaction together — one row per department/satisfaction combination."
+
+**3. Build the dashboard — this is the real exercise**
+This project's reference dashboard replaces standalone "attrition by department" and "attrition by satisfaction" bar charts with **one heatmap matrix** — Department as rows, Job Satisfaction (1-4) as columns, cells shaded by attrition rate — that's what query (6) above is for; it surfaces compounding risk factors a single bar chart can't show. Read [best-practices.md](../best-practices.md), then ask Claude to build that structure (a color-shaded HTML table, not a chart) from your `results/` CSVs in your own words — don't reuse the Path A prompt. Compare against [dashboard.html](dashboard.html) once you're happy with yours.
 
 ## Share Your Version
 

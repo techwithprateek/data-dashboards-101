@@ -62,3 +62,5 @@ Each project's README has the exact copy-paste prompts for that dataset, followi
 3. Ask Claude to write and run one SQL query per business question — ask "explain this query" any time you don't understand it. This is where the actual SQL learning happens.
 4. Save each query's results as a CSV file.
 5. Either import those CSVs into Power BI and build visuals with drag-and-drop (no DAX needed — the SQL already did the aggregation), or ask Claude to turn them into a self-contained HTML dashboard directly.
+
+**Already know SQL?** Each project README forks into two paths: **Path A (New to SQL)** is the query-by-query walkthrough above; **Path B (Already Know SQL)** batches all the queries into one prompt and points you straight at the reference dashboard's specific layout (a heatmap, a leaderboard, a hero trend chart) as the thing worth practicing — since SQL isn't the skill gap for that path, dashboard design is.
