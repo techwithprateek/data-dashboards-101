@@ -28,21 +28,47 @@ Tableau Public (free, local build, public share link) or Power BI Desktop.
 
 Follow the [best practices](../best-practices.md) before you start designing.
 
-**Reference build:** [dashboard.html](dashboard.html) — built with Claude + HTML (see below).
+**Reference build:** [dashboard.html](dashboard.html) — built with the SQL-first workflow below.
 
-## Build with Claude + HTML
+## Build This Dashboard with Claude (SQL-First)
 
-No BI tool installed? You can build this entire dashboard with Claude, using plain HTML — no server, no account, just a file you open in your browser.
+Do the [one-time setup](../README.md#setup-one-time) first (installs Claude Code). Then, in your terminal where you ran `claude`, work through these prompts one at a time.
 
-1. Ask Claude to pull the dataset — this one is large (1.7M+ rows), so ask Claude to query the Socrata API (`data.wa.gov/resource/rpr4-cgyd.json`) with aggregated SoQL queries (`$group`, `$select count(*)`) instead of downloading the full file.
-2. With 1.7M+ rows, raw-row filtering in the browser isn't an option — ask Claude to precompute a lookup table ("cube") of KPIs + chart data for every Year × Vehicle Type combination using aggregated SoQL queries, instead of shipping raw rows.
-3. Ask Claude to build a single self-contained `dashboard.html`: filter dropdowns for Year and Vehicle Type up top, KPI cards below, then 3-4 Chart.js charts that look up the matching precomputed slice and re-render when a filter changes.
-4. Open the HTML file directly in your browser to view it.
+**1. Get the data**
+This dataset lives on a government open-data portal, not Kaggle, and has 1.7M+ rows — too big to fetch through Claude. Get the full file yourself:
+1. Open the [dataset link](https://data.wa.gov/Transportation/Electric-Vehicle-Population-Data/rpr4-cgyd) above.
+2. Click **Export** (top right) → **CSV**.
+3. Save it into your project folder. It may take a minute to download — it's a large file, but SQLite handles millions of rows without trouble.
 
-Example prompt:
-> "Query the WA Electric Vehicle Population dataset (Socrata API at data.wa.gov, resource rpr4-cgyd) with aggregated SoQL queries grouped by year, vehicle type, and manufacturer (and separately by county). Precompute a lookup table of KPIs and chart breakdowns for every Year × Vehicle Type filter combination, including 'All'. Build a single self-contained HTML dashboard with filter dropdowns for Year and Vehicle Type, KPI cards, and Chart.js bar/line charts that look up the matching slice on filter change — PowerBI style, one accent color, sorted bars, hover tooltips, no dark mode."
+**2. Load it into a local SQLite database**
+> "Load the Electric Vehicle Population CSV into a new SQLite database called `ev.db`, in a table called `registrations`. This file has 1.7M+ rows so it may take a minute — that's expected."
 
-The [dashboard.html](dashboard.html) in this folder was built exactly this way — open it as a reference, but try building your own before peeking.
+**3. Explore the table**
+> "Show me the schema of the `registrations` table and the first 5 rows."
+
+**4. Ask one SQL question at a time:**
+> "Write and run a SQL query: total registration count, and count by Make, top 12, sorted highest to lowest."
+
+> "Write and run a SQL query: registration count by Model Year, sorted chronologically, for 2018 through 2024."
+
+> "Write and run a SQL query: registration count by County, top 10, sorted highest to lowest."
+
+> "Write and run a SQL query: registration count by Electric Vehicle Type (BEV vs PHEV vs Hydrogen)."
+
+> "Write and run a SQL query: average Electric Range by Make, for makes with at least 200 registrations, top 10, sorted highest to lowest."
+
+> "Write and run a SQL query: registration count by New or Used Vehicle."
+
+Ask **"explain this query"** any time a result surprises you.
+
+**5. Save your results**
+> "Save each of those query results as its own CSV file in a `results/` folder."
+
+**6. Build the dashboard** — pick one:
+- **Power BI**: Get Data → Text/CSV → import each file from `results/`, then drag fields into visuals. No DAX needed.
+- **Claude + HTML**: > "Using the CSV files in `results/`, build a single self-contained `dashboard.html`: filter dropdowns for Model Year and Vehicle Type; KPI cards for total registrations, top manufacturer, top manufacturer share, and YoY growth; and charts for the registration trend by year, registrations by manufacturer, vehicle type mix, registrations by county, and avg electric range by manufacturer — recomputing when a filter changes, PowerBI style, one accent color, sorted bars, hover tooltips, no dark mode."
+
+The [dashboard.html](dashboard.html) in this folder was built exactly this way — open it as a reference, but try building your own first.
 
 ## Share Your Version
 

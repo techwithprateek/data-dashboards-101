@@ -27,22 +27,44 @@ Tableau Public (free, local build, public share link) or Power BI Desktop.
 
 Follow the [best practices](../best-practices.md) before you start designing.
 
-**Reference build:** [dashboard.html](dashboard.html) — built with Claude + HTML (see below).
+**Reference build:** [dashboard.html](dashboard.html) — built with the SQL-first workflow below.
 
-## Build with Claude + HTML
+## Build This Dashboard with Claude (SQL-First)
 
-No BI tool installed? You can build this entire dashboard with Claude, using plain HTML — no server, no account, just a file you open in your browser.
+Do the [one-time setup](../README.md#setup-one-time) first (installs Claude Code). Then, in your terminal where you ran `claude`, work through these prompts one at a time.
 
-1. Ask Claude to download the dataset (Kaggle CLI, or the direct link above) and load it with pandas.
-2. Ask Claude to compute the KPIs above — on-time/late delivery rate, and late rate broken out by region, shipping mode, and market.
-3. This dataset is too large (180K+ rows) to filter live in the browser, so ask Claude to precompute a small lookup table ("cube") of KPIs + chart data for every Region × Shipping Mode combination, instead of shipping raw rows.
-4. Ask Claude to build a single self-contained `dashboard.html`: filter dropdowns for Order Region and Shipping Mode up top, KPI cards below, then 3-4 Chart.js charts that look up the matching precomputed slice and re-render when a filter changes.
-5. Open the HTML file directly in your browser to view it.
+**1. Get the data**
+Go to the [dataset link](https://www.kaggle.com/datasets/shashwatwork/dataco-smart-supply-chain-for-big-data-analysis) above, click **Download**, and unzip the file into your project folder. You'll see a file named `DataCoSupplyChainDataset.csv` (~180K rows — SQLite handles this easily).
 
-Example prompt:
-> "Download the DataCo Smart Supply Chain dataset from Kaggle. Precompute a lookup table of on-time/late delivery KPIs and chart breakdowns (by region, shipping mode, category, market) for every combination of Order Region and Shipping Mode filter, including 'All'. Build a single self-contained HTML dashboard with filter dropdowns for Region and Shipping Mode, KPI cards, and Chart.js bar charts that look up the matching slice on filter change — PowerBI style, one accent color, sorted bars, hover tooltips, no dark mode."
+**2. Load it into a local SQLite database**
+> "Load `DataCoSupplyChainDataset.csv` into a new SQLite database called `supply_chain.db`, in a table called `orders`. The file uses Latin-1 encoding, not UTF-8 — handle that when reading it."
 
-The [dashboard.html](dashboard.html) in this folder was built exactly this way — open it as a reference, but try building your own before peeking.
+**3. Explore the table**
+> "Show me the schema of the `orders` table and the first 5 rows. What does the `Late_delivery_risk` column mean — is it a flag?"
+
+**4. Ask one SQL question at a time:**
+> "Write and run a SQL query: total order count, and the percentage of orders where Late_delivery_risk = 1 (late) vs 0 (on-time)."
+
+> "Write and run a SQL query: late delivery rate by Order Region, sorted highest to lowest."
+
+> "Write and run a SQL query: late delivery rate by Shipping Mode, sorted highest to lowest."
+
+> "Write and run a SQL query: order count by Category Name, top 10, sorted highest to lowest."
+
+> "Write and run a SQL query: late delivery rate by Market, sorted highest to lowest."
+
+> "Write and run a SQL query: average shipping days (real) by Shipping Mode, sorted highest to lowest."
+
+Ask **"explain this query"** any time a result surprises you.
+
+**5. Save your results**
+> "Save each of those query results as its own CSV file in a `results/` folder."
+
+**6. Build the dashboard** — pick one:
+- **Power BI**: Get Data → Text/CSV → import each file from `results/`, then drag fields into visuals. No DAX needed.
+- **Claude + HTML**: > "Using the CSV files in `results/`, build a single self-contained `dashboard.html`: filter dropdowns for Order Region and Shipping Mode; KPI cards for total orders, on-time %, late %, and avg shipping days; and charts for late rate by region, by shipping mode, order volume by category, and late rate by market — recomputing when a filter changes, PowerBI style, one accent color, sorted bars, hover tooltips, no dark mode."
+
+The [dashboard.html](dashboard.html) in this folder was built exactly this way — open it as a reference, but try building your own first.
 
 ## Share Your Version
 

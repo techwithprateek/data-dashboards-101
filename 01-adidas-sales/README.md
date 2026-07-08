@@ -29,21 +29,44 @@ Tableau Public (free, local build, public share link) or Power BI Desktop.
 
 Follow the [best practices](../best-practices.md) before you start designing.
 
-**Reference build:** [dashboard.html](dashboard.html) — built with Claude + HTML (see below).
+**Reference build:** [dashboard.html](dashboard.html) — built with the SQL-first workflow below.
 
-## Build with Claude + HTML
+## Build This Dashboard with Claude (SQL-First)
 
-No BI tool installed? You can build this entire dashboard with Claude, using plain HTML — no server, no account, just a file you open in your browser.
+Do the [one-time setup](../README.md#setup-one-time) first (installs Claude Code). Then, in your terminal where you ran `claude`, work through these prompts one at a time.
 
-1. Ask Claude to download the dataset (Kaggle CLI, or the direct link above) and load it with pandas.
-2. Ask Claude to compute the KPIs above — total revenue, units sold, margin by region/category/retailer — and aggregate the results.
-3. Ask Claude to build a single self-contained `dashboard.html`: filter dropdowns up top (Region / Category / Retailer), KPI cards below that, then 3-4 charts (Chart.js via CDN is enough — no build tools needed) that all recompute live when a filter changes, PowerBI-slicer style.
-4. Open the HTML file directly in your browser to view it.
+**1. Get the data**
+Go to the [dataset link](https://www.kaggle.com/datasets/heemalichaudhari/adidas-sales-dataset) above, click **Download**, and unzip the file into your project folder. You should end up with `Adidas US Sales Datasets.xlsx`.
 
-Example prompt:
-> "Download the Adidas US Sales dataset from Kaggle, load it as row-level data (not pre-aggregated), and build a single self-contained HTML dashboard: filter dropdowns for Region, Product Category, and Retailer; KPI cards for total revenue, units sold, operating margin, total profit; and Chart.js bar/line charts for revenue by region, by category, monthly trend, and margin by retailer. Every chart and KPI should recompute client-side when a filter changes — PowerBI style, one accent color, sorted bars, hover tooltips, no dark mode."
+**2. Load it into a local SQLite database**
+> "Load `Adidas US Sales Datasets.xlsx` into a new SQLite database called `adidas.db`, in a table called `sales`. The real column headers start a few rows down in the file (there's a title and some blank rows above them) — inspect the file first and skip past those before loading."
 
-The [dashboard.html](dashboard.html) in this folder was built exactly this way — open it as a reference, but try building your own before peeking.
+**3. Explore the table**
+> "Show me the schema of the `sales` table and the first 5 rows."
+
+**4. Ask one SQL question at a time** — paste each of these, one per message:
+> "Write and run a SQL query for total revenue, total units sold, and operating margin (sum of profit ÷ sum of revenue) across the whole table."
+
+> "Write and run a SQL query: total revenue by region, sorted highest to lowest."
+
+> "Write and run a SQL query: total revenue by product category, sorted highest to lowest."
+
+> "Write and run a SQL query: total revenue by month, sorted chronologically. Use the invoice date column."
+
+> "Write and run a SQL query: operating margin (sum of profit ÷ sum of revenue) by retailer, sorted highest to lowest."
+
+> "Write and run a SQL query: total revenue by sales method (in-store, outlet, online)."
+
+If any query result surprises you, ask Claude **"explain this query"** — that's the actual SQL lesson.
+
+**5. Save your results**
+> "Save each of those query results as its own CSV file in a `results/` folder."
+
+**6. Build the dashboard** — pick one:
+- **Power BI**: Open Power BI Desktop → Get Data → Text/CSV → import each file from `results/`. Drag fields into visuals — the SQL already did the aggregation, so no DAX is required. Follow the [best practices](../best-practices.md) for layout and color.
+- **Claude + HTML**: > "Using the CSV files in `results/`, build a single self-contained `dashboard.html`: filter dropdowns for Region, Product Category, and Retailer; KPI cards for total revenue, units sold, operating margin, and total profit; and charts for revenue by region, by category, monthly trend, and margin by retailer. Every chart and KPI should recompute when a filter changes — PowerBI style, one accent color, sorted bars, hover tooltips, no dark mode."
+
+The [dashboard.html](dashboard.html) in this folder was built exactly this way — open it as a reference, but try building your own first.
 
 ## Share Your Version
 

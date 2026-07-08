@@ -14,6 +14,31 @@
 
 Each reference dashboard is a self-contained HTML file (open directly in a browser, no server needed) — built with Claude, real data, PowerBI-style filter dropdowns that actually cross-filter the KPIs and charts, a light flat theme (no dark mode), and a distinct accent color per project. They're the "answer key" — try building your own first.
 
+## Setup (one-time)
+
+You need a tool that lets Claude create files and run commands on your computer — the regular claude.ai chat in a browser can't do this. Use **Claude Code**:
+
+1. **Install Node.js** — go to [nodejs.org](https://nodejs.org), download the "LTS" version, run the installer, click through with defaults. (This is just a requirement to install Claude Code — you won't write any Node.js code.)
+2. **Open a terminal.**
+   - Mac: press `Cmd + Space`, type "Terminal", hit Enter.
+   - Windows: press the Start key, type "Command Prompt" (or install "Windows Terminal" from the Microsoft Store for a nicer experience), hit Enter.
+3. **Install Claude Code** — in the terminal, type this and press Enter:
+   ```
+   npm install -g @anthropic-ai/claude-code
+   ```
+4. **Create a project folder and enter it:**
+   ```
+   mkdir dashboard-practice
+   cd dashboard-practice
+   ```
+5. **Start Claude Code:**
+   ```
+   claude
+   ```
+   Log in when it asks (same account as claude.ai). You're now chatting with Claude *inside your terminal* — it can read/write files and run code in this folder. Everything from here on is just prompts you type at this chat.
+
+You do **not** need to separately install SQLite — Claude will create and query your database using Python's built-in `sqlite3` module, which needs no setup.
+
 ## How to Build
 
 **Option A — BI tool (recommended for learning Tableau/Power BI):**
@@ -23,5 +48,17 @@ Each reference dashboard is a self-contained HTML file (open directly in a brows
 4. Build in **Tableau Public** (free, local build, public share link) or **Power BI Desktop**.
 5. Publish and share your dashboard link — add it as a PR to the project's README, or drop it wherever you found this repo.
 
-**Option B — Claude + HTML (no BI tool needed):**
-Each project README has a "Build with Claude + HTML" section with an example prompt — ask Claude to fetch the dataset, compute the KPIs, and generate a self-contained `dashboard.html` you open straight in your browser.
+**Option B — SQL + Claude (recommended — teaches the actual Data Analyst skill stack):**
+
+This path teaches you SQL — the single most-requested skill in Data Analyst job postings — while Claude handles all the setup and query-writing friction. The shape of the workflow is always the same:
+
+```
+raw file  →  local SQLite database  →  SQL queries (one per business question)  →  saved CSV results  →  Power BI or Claude-built dashboard
+```
+
+Each project's README has the exact copy-paste prompts for that dataset, following this pattern:
+1. Load the raw file into a local SQLite database.
+2. Ask Claude to show you the table schema, so you know what you're working with.
+3. Ask Claude to write and run one SQL query per business question — ask "explain this query" any time you don't understand it. This is where the actual SQL learning happens.
+4. Save each query's results as a CSV file.
+5. Either import those CSVs into Power BI and build visuals with drag-and-drop (no DAX needed — the SQL already did the aggregation), or ask Claude to turn them into a self-contained HTML dashboard directly.
